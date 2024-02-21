@@ -17,7 +17,7 @@ public class Accelorometer : MonoBehaviour
     {
         accelerometer = Input.acceleration;
 
-        if(accelerometer.sqrMagnitude > 5f)
+        if(accelerometer.sqrMagnitude > 20f)
         {
             Debug.Log("shakey shake");
             this.gameObject.GetComponent<SpriteRenderer>().sprite = purpleBeaker;

@@ -23,7 +23,8 @@ public class UDPListener : MonoBehaviour
         string receivedMessage = Encoding.ASCII.GetString(receivedBytes);
 
         // Handle received message
-        if (!receivedMessage.Contains("Windows")) Debug.Log(receivedMessage);
+        if (!receivedMessage.Contains("Mobile")) Debug.Log(receivedMessage);
+        Debug.Log("Received message: " + receivedMessage);
 
         // Continue listening for messages
         udpClient.BeginReceive(ReceiveData, null);

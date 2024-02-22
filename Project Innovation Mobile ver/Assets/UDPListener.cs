@@ -24,6 +24,8 @@ public class UDPListener : MonoBehaviour
 
         // Handle received message
         if (!receivedMessage.Contains("Windows")) Debug.Log(receivedMessage);
+        Debug.Log("Received message: " + receivedMessage);
+
 
         // Continue listening for messages
         udpClient.BeginReceive(ReceiveData, null);

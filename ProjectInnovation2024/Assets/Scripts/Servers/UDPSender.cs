@@ -10,7 +10,7 @@ public class UDPSender : MonoBehaviour
 
     void Update()
     {
-        SendBroadcast("Windows: Huhu!");
+        SendBroadcast("Windows: Look how small you are!");
     }
 
     public static void SendBroadcast(string message)

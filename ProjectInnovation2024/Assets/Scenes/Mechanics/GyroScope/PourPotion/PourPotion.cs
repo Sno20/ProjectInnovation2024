@@ -6,16 +6,19 @@ using Unity.VisualScripting;
 
 public class PourPotion : MonoBehaviour {
 
-  [SerializeField] private float minPhoneRotationX = 340f;
-  [SerializeField] private float maxPhoneRotationX = 20f;
-  [SerializeField] private float minPourAngleX = 0;
-  [SerializeField] private float maxPourAngleX = 0;
+  [SerializeField] private float minPhoneRotationX = 330f;
+  [SerializeField] private float maxPhoneRotationX = 30f;
+  [SerializeField] private float minPourAngleY = 0;
+  [SerializeField] private float maxPourAngleY = 180;
 
   [SerializeField] private TextMeshProUGUI textBox; //for testing
   [SerializeField] private bool upright = true; //for testing
 
   private Quaternion initialOrientation;
   private bool isCalibrated = false;
+
+  private Quaternion targetRotation;
+  private float rotationSpeed = 2f;
 
   private void Start() {
     if (SystemInfo.supportsGyroscope) { //check if device has gyroscope
@@ -25,6 +28,8 @@ public class PourPotion : MonoBehaviour {
     else {
       Debug.Log("Gyroscope not supported"); //message if not supported
     }
+    targetRotation = transform.rotation;
+
   }
 
   private void Update() {
@@ -54,12 +59,19 @@ public class PourPotion : MonoBehaviour {
     Vector3 gyroRot = correctedOrientation.eulerAngles; // Use corrected orientation
 
     
-    if (gyroRot.x > minPhoneRotationX || gyroRot.x < maxPhoneRotationX) {
-      Debug.Log("in range");
-      spriteRotation = new Vector3(0, 0, -gyroRot.y);
-      transform.rotation = Quaternion.Euler(spriteRotation);
+    if (gyroRot.x > minPhoneRotationX || gyroRot.x < maxPhoneRotationX) { //check we are pouring within the phone upright position within the x range
+      if (gyroRot.y < minPourAngleY || gyroRot.y > maxPourAngleY) { //check if we are pouring correct direction
+        spriteRotation = new Vector3(0, 0, -gyroRot.y); //due to weird coordinate space we set the spriteRotation's Z to -y
+        transform.rotation = Quaternion.Euler(spriteRotation); //set the current sprite rotation to the vector with Euler to avoid gimball lock
+      }
+     /* else if {
+        targetRotation = Quaternion.Euler(spriteRotation); //easing
+      }*/
     }
-    textBox.text = gyroRot.ToString() + "\n" + minPhoneRotationX + "\n" + maxPhoneRotationX + "\n" + spriteRotation.ToString();
+
+    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+
+    textBox.text = gyroRot.ToString() + "\n" + minPhoneRotationX + "\n" + maxPhoneRotationX + "\n" + spriteRotation.ToString(); //show text
   }
 
   private void Pour() {

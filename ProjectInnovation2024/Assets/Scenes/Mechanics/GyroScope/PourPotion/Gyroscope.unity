@@ -1151,10 +1151,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83ce1e2a9bd31ca428db6432c91fa4f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minPhoneRotationX: 340
-  maxPhoneRotationX: 20
+  minPhoneRotationX: 330
+  maxPhoneRotationX: 30
   minPourAngleX: 0
-  maxPourAngleX: 0
+  maxPourAngleX: 180
   textBox: {fileID: 440748595}
   upright: 1
 --- !u!1 &1352940866

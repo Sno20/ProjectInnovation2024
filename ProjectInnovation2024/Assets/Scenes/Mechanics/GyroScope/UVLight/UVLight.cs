@@ -11,12 +11,30 @@ public class UVLight : MonoBehaviour {
 
   [SerializeField] private GameObject textBox;
 
-  private void Start() {
+  private Quaternion initialOrientation;
+  private bool isCalibrated = false;
 
+  private void Start() {
+    CalibrateGyro();
   }
 
   private void Update() {
+    if (!isCalibrated) {
+      return;
+    }
+
     GyroCheck();
+  }
+
+  private void CalibrateGyro() {
+    // Capture the initial orientation as the inverse of the current attitude
+    // This makes the current orientation the "neutral" or reference point
+    initialOrientation = Quaternion.Inverse(Input.gyro.attitude);
+    isCalibrated = true;
+  }
+
+  public void Recalibrate() { //a method to recalibrate if needed
+    CalibrateGyro();
   }
 
   private void GyroCheck() {

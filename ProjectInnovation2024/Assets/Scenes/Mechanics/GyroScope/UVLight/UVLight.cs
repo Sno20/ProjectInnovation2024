@@ -25,7 +25,7 @@ public class UVLight : MonoBehaviour {
 
     GyroCheck();
   }
-
+  
   private void CalibrateGyro() {
     // Capture the initial orientation as the inverse of the current attitude
     // This makes the current orientation the "neutral" or reference point

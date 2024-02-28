@@ -1,11 +1,12 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using WebSocketSharp;
 
 public class GlitchServer : MonoBehaviour
 {
     private WebSocket serverSocket;
-    public Text gameCodeText;
+    public TextMeshProUGUI gameCodeText;
 
     void Start()
     {
@@ -14,7 +15,7 @@ public class GlitchServer : MonoBehaviour
         serverSocket.OnOpen += (sender, e) =>
         {
             Debug.Log("WebSocket connection opened");
-            // Generate and send a message to request a game code
+            serverSocket.Send("WindowsConnected");
             RequestGameCode();
         };
 
@@ -36,21 +37,21 @@ public class GlitchServer : MonoBehaviour
     }
 
     void RequestGameCode()
-    {
-        // Send a message to request a game code
-        serverSocket.Send("RequestGameCode");
-    }
+{
+    // Send a message to request a game code
+    serverSocket.Send("RequestGameCode");
+}
 
     void ProcessMessage(string message)
+{
+    // Assume the server responds with the game code
+    if (message.StartsWith("GameCode:"))
     {
-        // Assume the server responds with the game code
-        if (message.StartsWith("GameCode:"))
-        {
-            string gameCode = message.Substring("GameCode:".Length);
-            // Display the received game code in the Unity UI
-           //gameCodeText.text = "Game Code: " + gameCode;
-        }
+        string gameCode = message.Substring("GameCode:".Length);
+        // Display the received game code in the Unity UI
+        gameCodeText.text = "Game Code: " + gameCode;
     }
+}
 
     void OnDestroy()
     {

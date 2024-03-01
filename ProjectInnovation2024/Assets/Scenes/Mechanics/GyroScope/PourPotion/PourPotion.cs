@@ -12,6 +12,10 @@ public class PourPotion : MonoBehaviour
     [SerializeField] private float minPourAngleY = 0;
     [SerializeField] private float maxPourAngleY = 180;
 
+    [SerializeField] private GameObject mixGameObject;
+    [SerializeField] private GameObject thisParent;
+
+        [SerializeField] private GameObject calibration;
 
     private Quaternion initialOrientation;
     private bool isCalibrated = false;
@@ -21,10 +25,12 @@ public class PourPotion : MonoBehaviour
 
     private void Start()
     {
+        
+
         if (SystemInfo.supportsGyroscope)
         { //check if device has gyroscope
             Input.gyro.enabled = true; //enable use of gyroscope
-            CalibrateGyro();
+            //CalibrateGyro();
         }
         else
         {
@@ -35,11 +41,13 @@ public class PourPotion : MonoBehaviour
 
     private void Update()
     {
+       //initialOrientation = calibration.GetComponent<Calibration>().initialOrientation;
+
         if (!isCalibrated)
         {
             return;
         }
-
+        
         GyroCheck();
     }
 
@@ -78,6 +86,10 @@ public class PourPotion : MonoBehaviour
     private void Pour()
     {
         Debug.Log("Pouring now");
+
+        mixGameObject.SetActive(true);
+
+        thisParent.SetActive(false);
 
         //  mechanic finished
         //bool to mix

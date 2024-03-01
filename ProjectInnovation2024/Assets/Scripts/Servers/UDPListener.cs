@@ -27,16 +27,50 @@ public class UDPListener : MonoBehaviour
     {
         IPEndPoint endPoint = new IPEndPoint(IPAddress.Any, port);
         byte[] receivedBytes = udpClient.EndReceive(result, ref endPoint);
-        string receivedMessage = Encoding.ASCII.GetString(receivedBytes);
+        messageReceived = Encoding.ASCII.GetString(receivedBytes);
 
         // Handle received message
         //if (!receivedMessage.Contains("Mobile")) Debug.Log(receivedMessage);
         //Debug.Log("Received message: " + receivedMessage);
-        messageReceived = receivedMessage;
 
         // Continue listening for messages
         udpClient.BeginReceive(ReceiveData, null);
     }
+
+    private void Decode(string message)
+    {
+        if (message.Contains("gyro")){
+
+            DecodeGyro(message);
+        }
+    }
+
+    private Vector3 DecodeGyro(string gyroMessage)
+    {
+        Vector3 gyroData;
+
+        string[] gyroDataParts = messageReceived.Split(',');    Debug.Log(gyroDataParts);
+
+
+        if (gyroDataParts.Length >= 3)
+        {
+            gyroData.x = float.Parse(gyroDataParts[0]);
+            gyroData.y = float.Parse(gyroDataParts[1]);
+            gyroData.z = float.Parse(gyroDataParts[2]);
+
+            //transform.rotation = Quaternion.Euler(gyroData);
+        }
+        else
+        {
+            gyroData.x = -1;
+            gyroData.y = -1;
+            gyroData.z = -1;
+        }
+        return gyroData;
+
+    }
+
+
 
     void ReceiveNum(IAsyncResult result)
     {

@@ -43,8 +43,7 @@ public class GetGyroData : MonoBehaviour
     {
 
         UDPListener listener = senderListener.GetComponent<UDPListener>();
-
-        messageReceived = listener.messageReceived;
+        this.messageReceived = listener.messageReceived;
 
         textBox.text = messageReceived;
 
@@ -59,17 +58,10 @@ public class GetGyroData : MonoBehaviour
             transform.rotation = Quaternion.Euler(gyroData);
         }
 
-        /* Vector3 gyroRot = Input.gyro.attitude.eulerAngles;
-
-         Vector3 spriteRotation = new Vector3(gyroRot.x, gyroRot.z, -gyroRot.y);
-         transform.rotation = Quaternion.Euler(spriteRotation);
-
-         textBox.text = ConvertToMessage(spriteRotation);
-         Debug.Log(ConvertToMessage(spriteRotation));
-
-         */
 
     }
+
+    
 
     private string ConvertToMessage(Vector3 pGyroData)
     {

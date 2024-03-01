@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class CameraSwitching : MonoBehaviour {
 
   [SerializeField] private List<GameObject> screens = new List<GameObject>(); //setup array list
-  private int currentScreen = 0;
+  public int currentScreen = 0;
   [SerializeField] private Image blackBackground;
   [SerializeField] private float fadeDuration = 1f;
 

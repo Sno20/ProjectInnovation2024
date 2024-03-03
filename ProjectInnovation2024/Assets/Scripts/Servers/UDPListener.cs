@@ -7,25 +7,74 @@ public class UDPListener : MonoBehaviour {
 
   //PC
 
-  private UdpClient udpClient;
+  private UdpClient client;
   private IPEndPoint endPoint;
 
+  public Quaternion gyroQuaternion;
+
   private void Start() {
-    udpClient = new UdpClient(8089);
+    client = new UdpClient(8089);
     endPoint = new IPEndPoint(IPAddress.Any, 0);
   }
 
   private void Update() {
-    if (udpClient.Available > 0) {
-      byte[] inBytes = udpClient.Receive(ref endPoint); //receive from client
+    /*ReceiveIPData();
+    ReceiveGyroInput();*/
+
+    ReceiveData();
+  }
+
+  void ReceiveData() {
+    while (client.Available > 0) {
+      byte[] inBytes = client.Receive(ref endPoint);
+      string inString = Encoding.UTF8.GetString(inBytes);
+      
+      if (inString.StartsWith("IP:")) {
+        // Handle IP setting, maybe remove the prefix and process the remaining string
+        Debug.Log($"Received IP: {inString.Substring(3)} from {endPoint}");
+      }
+      else if (inString.StartsWith("GYRO:")) {
+        // Handle Gyro input, remove the prefix before converting
+        string gyroData = inString.Substring(5);
+        gyroQuaternion = StringToQuaternion(gyroData);
+        Debug.Log($"Received Gyro Data: {gyroData} from {endPoint}");
+        // Use gyroQuaternion as needed
+      }
+    }
+  }
+/*  void ReceiveIPData() {
+    if (client.Available > 0) {
+      byte[] inBytes = client.Receive(ref endPoint); //receive from client
       string inString = Encoding.UTF8.GetString(inBytes); //convert bytes into strings
       Debug.Log($"Received:{inString} ({inBytes.Length} bytes) from {endPoint}"); //prints the string, number of bytes and from who we receive it
     }
   }
 
+  void ReceiveGyroInput() {
+    if (client.Available > 0) {
+      byte[] inBytes = client.Receive(ref endPoint);
+      string inString = Encoding.UTF8.GetString(inBytes);
+      Debug.Log($"Received:{inString} ({inBytes.Length} bytes) from {endPoint}");
+      Quaternion gyroQuaternion = StringToQuaternion(inString);
+      // Use gyroQuaternion as needed
+    }
+  }*/
+
+  Quaternion StringToQuaternion(string s) {
+    string[] values = s.Split(',');
+    if (values.Length == 4) {
+      return new Quaternion(
+          float.Parse(values[0]),
+          float.Parse(values[1]),
+          float.Parse(values[2]),
+          float.Parse(values[3]));
+    }
+    return Quaternion.identity;
+  }
+
   private void OnDestroy() {
-    if (udpClient != null)
-      udpClient.Close();
+    if (client != null)
+      client.Close();
   }
 
 }
@@ -47,18 +96,18 @@ public class UDPListener : MonoBehaviour {
   /*public string messageReceived;
 
   private const int port = 8089;
-  private UdpClient udpClient;
+  private UdpClient client;
   int testNum = 0;
 
   void Start() {
-    udpClient = new UdpClient(port);
-    udpClient.BeginReceive(ReceiveData, null);
-    udpClient.BeginReceive(ReceiveNum, null);
+    client = new UdpClient(port);
+    client.BeginReceive(ReceiveData, null);
+    client.BeginReceive(ReceiveNum, null);
   }
 
   void ReceiveData(IAsyncResult result) {
     IPEndPoint endPoint = new IPEndPoint(IPAddress.Any, port);
-    byte[] receivedBytes = udpClient.EndReceive(result, ref endPoint);
+    byte[] receivedBytes = client.EndReceive(result, ref endPoint);
     messageReceived = Encoding.ASCII.GetString(receivedBytes);
 
     Vector3 gyroData;
@@ -85,7 +134,7 @@ public class UDPListener : MonoBehaviour {
     //Debug.Log("Received message: " + receivedMessage);
 
     // Continue listening for messages
-    udpClient.BeginReceive(ReceiveData, null);
+    client.BeginReceive(ReceiveData, null);
   }
 
   private void Decode(string message) {
@@ -123,7 +172,7 @@ public class UDPListener : MonoBehaviour {
 
     void ReceiveNum(IAsyncResult result) {
       IPEndPoint endPoint = new IPEndPoint(IPAddress.Any, port);
-      byte[] receivedBytes = udpClient.EndReceive(result, ref endPoint);
+      byte[] receivedBytes = client.EndReceive(result, ref endPoint);
 
       // Check if the received bytes can be converted to an integer
       if (receivedBytes.Length == 4) {
@@ -139,11 +188,11 @@ public class UDPListener : MonoBehaviour {
       }
 
       // Continue listening for messages
-      udpClient.BeginReceive(ReceiveNum, null);
+      client.BeginReceive(ReceiveNum, null);
     }
 
     void OnDestroy() {
-      if (udpClient != null) {
-        udpClient.Close();
+      if (client != null) {
+        client.Close();
       }
     }*/

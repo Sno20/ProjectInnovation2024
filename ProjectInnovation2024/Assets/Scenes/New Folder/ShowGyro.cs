@@ -1,4 +1,4 @@
-using System.Collections;
+/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -19,7 +19,7 @@ public class GetGyroData : MonoBehaviour
 
     private void Start()
     {
-        /*
+        *//*
          if (SystemInfo.supportsGyroscope)
         { //check if device has gyroscope
             Input.gyro.enabled = true; //enable use of gyroscope
@@ -28,7 +28,7 @@ public class GetGyroData : MonoBehaviour
         {
             Debug.Log("Gyroscope not supported"); //message if not supported
         }
-        */
+        *//*
     }
 
     private void Update()
@@ -75,3 +75,4 @@ public class GetGyroData : MonoBehaviour
 
 
 }
+*/

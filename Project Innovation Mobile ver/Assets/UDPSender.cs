@@ -9,7 +9,7 @@ using TMPro;
 
 public class UDPSender : MonoBehaviour
 {
-    //      MOBILE
+    //MOBILE
 
 
     private const int port = 8089;
@@ -29,7 +29,7 @@ public class UDPSender : MonoBehaviour
   }
 
   void SendToTarget(byte[] packet) {
-    Debug.Log("Sending packet to target")
+    Debug.Log("Sending packet to target");
     client.Send(packet, packet.Length, targetIP, port);
   }
 
@@ -47,42 +47,40 @@ public class UDPSender : MonoBehaviour
       }
 
 
-            SendBroadcast(messageToSend);
+            //SendBroadcast(messageToSend);
             messageToSend = null;
         }
 
     }
 
-    public static void SendBroadcast(string message)
-    {
-        UdpClient udpClient = new UdpClient(); // create a new socket for every message??!?!!?!
-        udpClient.EnableBroadcast = true;
+  /*public static void SendBroadcast(string message) {
+    UdpClient udpClient = new UdpClient(); // create a new socket for every message??!?!!?!
+    udpClient.EnableBroadcast = true;
 
-        // Define the message to send for discovery
-        string discoveryMessage = message;
+    // Define the message to send for discovery
+    string discoveryMessage = message;
 
-        // Convert message string to bytes
-        byte[] bytes = Encoding.ASCII.GetBytes(discoveryMessage);
-
+    // Convert message string to bytes
+    byte[] bytes = Encoding.ASCII.GetBytes(discoveryMessage);
 
 
-        // Broadcast the discovery message to the local network
-        IPEndPoint endPoint = new IPEndPoint(IPAddress.Broadcast, port);
-        udpClient.Send(bytes, bytes.Length, endPoint);
-        udpClient.Close();
-    }
 
-    public static void SendInt(int number)
-    {
-        UdpClient udpClient = new UdpClient();
-        udpClient.EnableBroadcast = true;
+    // Broadcast the discovery message to the local network
+    IPEndPoint endPoint = new IPEndPoint(IPAddress.Broadcast, port);
+    udpClient.Send(bytes, bytes.Length, endPoint);
+    udpClient.Close();
+  }*/
 
-        // Convert integer value to a fixed-size byte array (4 bytes)
-        byte[] bytes = BitConverter.GetBytes(number);
+/*  public static void SendInt(int number) {
+    UdpClient udpClient = new UdpClient();
+    udpClient.EnableBroadcast = true;
 
-        // Broadcast the message to the local network
-        IPEndPoint endPoint = new IPEndPoint(IPAddress.Broadcast, port);
-        udpClient.Send(bytes, bytes.Length, endPoint);
-        udpClient.Close();
-    }
+    // Convert integer value to a fixed-size byte array (4 bytes)
+    byte[] bytes = BitConverter.GetBytes(number);
+
+    // Broadcast the message to the local network
+    IPEndPoint endPoint = new IPEndPoint(IPAddress.Broadcast, port);
+    udpClient.Send(bytes, bytes.Length, endPoint);
+    udpClient.Close();
+  }*/
 }

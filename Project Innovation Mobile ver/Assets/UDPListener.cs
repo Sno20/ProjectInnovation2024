@@ -7,6 +7,9 @@ using System;
 
 public class UDPListener : MonoBehaviour
 {
+    //      MOBILE
+
+
     private const int port = 7087;
     private UdpClient udpClient;
 

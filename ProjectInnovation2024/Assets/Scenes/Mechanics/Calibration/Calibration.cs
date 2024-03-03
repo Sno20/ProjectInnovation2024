@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Calibration : MonoBehaviour
 {
-  private Quaternion initialOrientation;
+  public Quaternion initialOrientation;
   private bool isCalibrated = false;
 
   [SerializeField] private Outline outline;

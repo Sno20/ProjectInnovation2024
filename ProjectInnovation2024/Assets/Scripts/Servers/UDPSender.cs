@@ -5,6 +5,8 @@ using System.Net.Sockets;
 using System.Text;
 
 public class UDPSender : MonoBehaviour
+
+// PC
 {
     private const int port = 7087;
 

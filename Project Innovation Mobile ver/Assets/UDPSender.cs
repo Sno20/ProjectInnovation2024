@@ -16,22 +16,24 @@ public class UDPSender : MonoBehaviour
 
     public string messageToSend = null;
 
-  public TMP_InputField text;
+    public TMP_InputField text;
 
-  UdpClient client=new UdpClient();
+    UdpClient client = new UdpClient();
 
-  string targetIP=null;
+    string targetIP = null;
 
-  public void SetIP(string ip) {
-    // more ugly code:
-    targetIP = text.text;
-    Debug.Log("Target IP: " + targetIP);
-  }
+    public void SetIP(string ip)
+    {
+        // more ugly code:
+        targetIP = text.text;
+        Debug.Log("Target IP: " + targetIP);
+    }
 
-  void SendToTarget(byte[] packet) {
-    Debug.Log("Sending packet to target")
-    client.Send(packet, packet.Length, targetIP, port);
-  }
+    void SendToTarget(byte[] packet)
+    {
+        Debug.Log("Sending packet to target");
+      client.Send(packet, packet.Length, targetIP, port);
+    }
 
 
     void Update()
@@ -41,10 +43,11 @@ public class UDPSender : MonoBehaviour
 
         if (messageToSend != null)
         {
-      if (targetIP!=null) {
-        byte[] bytes = Encoding.ASCII.GetBytes(messageToSend);
-        SendToTarget(bytes);
-      }
+            if (targetIP != null)
+            {
+                byte[] bytes = Encoding.ASCII.GetBytes(messageToSend);
+                SendToTarget(bytes);
+            }
 
 
             SendBroadcast(messageToSend);
@@ -63,7 +66,6 @@ public class UDPSender : MonoBehaviour
 
         // Convert message string to bytes
         byte[] bytes = Encoding.ASCII.GetBytes(discoveryMessage);
-
 
 
         // Broadcast the discovery message to the local network

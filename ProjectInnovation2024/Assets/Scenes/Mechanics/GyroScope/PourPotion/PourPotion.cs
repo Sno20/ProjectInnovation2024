@@ -7,15 +7,15 @@ using Unity.VisualScripting;
 public class PourPotion : MonoBehaviour
 {
 
-    [SerializeField] private float minPhoneRotationX = 330f;
-    [SerializeField] private float maxPhoneRotationX = 30f;
-    [SerializeField] private float minPourAngleY = 0;
-    [SerializeField] private float maxPourAngleY = 180;
+    [SerializeField] private float minPhoneRotationX;
+    [SerializeField] private float maxPhoneRotationX;
+    [SerializeField] private float minPourAngleY;
+    [SerializeField] private float maxPourAngleY;
 
-    [SerializeField] private GameObject mixGameObject;
+    /*[SerializeField] private GameObject mixGameObject;
     [SerializeField] private GameObject thisParent;
 
-        [SerializeField] private GameObject calibration;
+    [SerializeField] private GameObject calibration;*/
 
     private Quaternion initialOrientation;
     private bool isCalibrated = false;
@@ -25,7 +25,7 @@ public class PourPotion : MonoBehaviour
 
     private void Start()
     {
-        
+
 
         if (SystemInfo.supportsGyroscope)
         { //check if device has gyroscope
@@ -41,13 +41,13 @@ public class PourPotion : MonoBehaviour
 
     private void Update()
     {
-       //initialOrientation = calibration.GetComponent<Calibration>().initialOrientation;
+        //initialOrientation = calibration.GetComponent<Calibration>().initialOrientation;
 
         if (!isCalibrated)
         {
             return;
         }
-        
+
         GyroCheck();
     }
 
@@ -68,30 +68,55 @@ public class PourPotion : MonoBehaviour
     {
         // Apply the calibration offset to the current orientation
         Quaternion correctedOrientation = Input.gyro.attitude * initialOrientation;
-        Vector3 gyroRot = correctedOrientation.eulerAngles; // Use corrected orientation
+        Vector3 gyroRotation = correctedOrientation.eulerAngles; // Use corrected orientation
 
-
-        if (gyroRot.x > minPhoneRotationX || gyroRot.x < maxPhoneRotationX)
+        /*if (gyroRot.x > minPhoneRotationX || gyroRot.x < maxPhoneRotationX)
         { //check we are pouring within the phone upright position within the x range
             if (gyroRot.y < minPourAngleY || gyroRot.y > maxPourAngleY)
             { //check if we are pouring correct direction
-                Vector3 spriteRotation = new Vector3(0, 0, -gyroRot.y); //due to weird coordinate space we set the spriteRotation's Z to -y
-                                                                        //transform.rotation = Quaternion.Euler(spriteRotation); //set the current sprite rotation to the vector with Euler to avoid gimball lock
+              //Vector3 spriteRotation = new Vector3(0, 0, -gyroRot.y); //    IOS    due to weird coordinate space we set the spriteRotation's Z to -y
+                
+                Vector3 spriteRotation = new Vector3(0, 0, gyroRot.x);  // ANDROID
+
+              //transform.rotation = Quaternion.Euler(spriteRotation); //set the current sprite rotation to the vector with Euler to avoid gimball lock
                 targetRotation = Quaternion.Euler(spriteRotation); //easing
             }
-        }
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+        }*/
+        /*//   sprite x                          sprite x
+        if (gyroRot.y > minPhoneRotationX || gyroRot.y < maxPhoneRotationX)
+        { //check we are pouring within the phone upright position within the x range
+            //  sprite z                     sprite z
+            if (gyroRot.x < minPourAngleY || gyroRot.x > maxPourAngleY)
+            { //check if we are pouring correct direction
+              //Vector3 spriteRotation = new Vector3(0, 0, -gyroRot.y); //    IOS    due to weird coordinate space we set the spriteRotation's Z to -y
+
+                Vector3 spriteRotation = new Vector3(0, 0, gyroRot.x);  // ANDROID
+
+                //transform.rotation = Quaternion.Euler(spriteRotation); //set the current sprite rotation to the vector with Euler to avoid gimball lock
+                targetRotation = Quaternion.Euler(spriteRotation); //easing
+            }
+        }*/
+
+        //Vector3 spriteRotation = new Vector3(-gyroRotation.y, -gyroRotation.z, gyroRotation.x);
+        //Vector3 spriteRotation = new Vector3(0,0, gyroRotation.x);
+        //Debug.Log("x y z :" + -gyroRotation.y + "; " + -gyroRotation.z + "; " + gyroRotation.x);
+        //transform.rotation = Quaternion.Euler(spriteRotation);
+        //transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+
+        transform.rotation = correctedOrientation;
+
     }
 
     private void Pour()
     {
         Debug.Log("Pouring now");
 
-        mixGameObject.SetActive(true);
-
-        thisParent.SetActive(false);
-
         //  mechanic finished
-        //bool to mix
+        //bool to mix 
+
+        //mixGameObject.SetActive(true);
+
+        //thisParent.SetActive(false);
+
     }
 }

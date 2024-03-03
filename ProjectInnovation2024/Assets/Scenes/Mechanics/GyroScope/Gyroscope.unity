@@ -838,6 +838,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 485ecac78eb9d384885ac949f5d436e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  messageReceived: 
 --- !u!4 &871084684
 Transform:
   m_ObjectHideFlags: 0
@@ -1223,12 +1224,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83ce1e2a9bd31ca428db6432c91fa4f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minPhoneRotationX: 330
+  minPhoneRotationX: -330
   maxPhoneRotationX: 30
   minPourAngleY: 0
   maxPourAngleY: 180
-  textBox: {fileID: 440748595}
-  upright: 1
   rotationSpeed: 5
 --- !u!1 &1352940866
 GameObject:

@@ -44,7 +44,7 @@ public class GetGyroData : MonoBehaviour
         transform.rotation = Quaternion.Euler(spriteRotation);
 
         textBox.text = ConvertToMessage(spriteRotation);
-        Debug.Log(ConvertToMessage(spriteRotation));
+        //Debug.Log(ConvertToMessage(spriteRotation));
 
         UDPSender sender = senderListener.GetComponent<UDPSender>();
 

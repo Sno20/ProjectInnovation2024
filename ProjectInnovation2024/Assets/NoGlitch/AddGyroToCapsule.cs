@@ -5,7 +5,6 @@ using UnityEngine;
 public class AddGyroToCapsule : MonoBehaviour {
 
   [SerializeField] private GameObject senderListener;
-  //private Quaternion gyroData;
 
   private UDPListener udpListener; // Cache the component
   private Quaternion previousGyroData;
@@ -27,9 +26,5 @@ public class AddGyroToCapsule : MonoBehaviour {
         previousGyroData = currentGyroData; // Update the previous data
       }
     }
-
-    /*gyroData = senderListener.GetComponent<UDPListener>().gyroQuaternion;
-    Vector3 gyroDataVector = gyroData.eulerAngles;
-    transform.rotation = Quaternion.Euler(gyroDataVector.x, gyroDataVector.y, gyroDataVector.z);*/
   }
 }

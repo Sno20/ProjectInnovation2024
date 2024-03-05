@@ -44,8 +44,9 @@ public class UDPSender : MonoBehaviour {
       messageToSend = null;
     }
 
-    if (!string.IsNullOrEmpty(targetIP)) { // ensure IP is set before sending
+    if (!string.IsNullOrEmpty(targetIP)) { // ensure IP is set before sendingk
       SendGyroData();
+      SendAccelerationData();
     }
   }
 
@@ -61,4 +62,12 @@ public class UDPSender : MonoBehaviour {
   string QuaternionToString(Quaternion q) {
     return $"{q.x},{q.y},{q.z},{q.w}";
   }
+  void SendAccelerationData() {
+    Vector3 acceleration = Input.acceleration;
+    float sqrMagnitude = acceleration.sqrMagnitude; // Calculate squared magnitude
+    string accelerationData = "ACCEL:" + sqrMagnitude.ToString();
+    byte[] bytes = Encoding.ASCII.GetBytes(accelerationData);
+    SendToTarget(bytes);
+  }
+
 }

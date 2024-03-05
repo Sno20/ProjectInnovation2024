@@ -14,8 +14,8 @@ public class PourPotion : MonoBehaviour {
   private float minPourAngleY;
   private float maxPourAngleY;
 
-  [SerializeField] private GameObject calibrationController;
-  private Calibration calibration;
+  private Quaternion initialOrientation;
+  private bool isCalibrated = false;
 
   private Vector3 spriteRotation;
   private Quaternion targetRotation;
@@ -33,38 +33,24 @@ public class PourPotion : MonoBehaviour {
       Debug.Log("Gyroscope not supported"); //message if not supported
     }
     targetRotation = transform.rotation;
-
-    if (calibrationController != null) {
-      calibration = calibrationController.GetComponent<Calibration>();
-    }
-    else {
-      Debug.Log("calibrationController not assigned in editor");
-    }
-
-    if (iphone) {
-      minPhoneRotationX = 330;
-      maxPhoneRotationX = 30;
-      minPourAngleY = 180;
-      maxPourAngleY = 240;
-    }
-    else {
-      minPhoneRotationX = 350;
-      maxPhoneRotationX = 10;
-      minPourAngleY = 120;
-      maxPourAngleY = 180;
-    }
   }
 
   private void Update() {
-    if (!calibration.isCalibrated) {
+    if (!isCalibrated) {
       return;
     }
-
+    CheckPhone();
     GyroCheck();
   }
 
+  public void CalibrateGyro() { //assign this to a button to calibrate before starting the minigame
+    initialOrientation = Quaternion.Inverse(Input.gyro.attitude);
+    isCalibrated = true;
+  }
+
+
   private void GyroCheck() {
-    Quaternion correctedOrientation = Input.gyro.attitude * calibration.initialOrientation; //apply the calibration offset to the current orientation
+    Quaternion correctedOrientation = Input.gyro.attitude * initialOrientation; //apply the calibration offset to the current orientation
     Vector3 gyroRotation = correctedOrientation.eulerAngles; // Use corrected orientation
 
     if (iphone) {
@@ -79,7 +65,7 @@ public class PourPotion : MonoBehaviour {
       }
     }
     else {
-      spriteRotation = new Vector3(0, 0, gyroRotation.y);  // ANDROID without x if, otherwise -y
+      spriteRotation = new Vector3(0, 0, -gyroRotation.y);  // ANDROID without x if, otherwise -y
       targetRotation = Quaternion.Euler(spriteRotation); //easing
       if (gyroRotation.y > minPourAngleY && gyroRotation.y < maxPourAngleY) //check if we are pouring correct direction
       {
@@ -97,5 +83,20 @@ public class PourPotion : MonoBehaviour {
       Debug.Log("Pouring now");
     }
     didPour = true;
+  }
+
+  private void CheckPhone() {
+    if (iphone) {
+      minPhoneRotationX = 330;
+      maxPhoneRotationX = 30;
+      minPourAngleY = 180;
+      maxPourAngleY = 240;
+    }
+    else {
+      minPhoneRotationX = 350;
+      maxPhoneRotationX = 10;
+      minPourAngleY = 120;
+      maxPourAngleY = 180;
+    }
   }
 }

@@ -63,7 +63,7 @@ public class PourPotionUDP : MonoBehaviour {
         }
       }
       else {
-        spriteRotation = new Vector3(0, 0, gyroRotation.y);  // ANDROID without x if, otherwise -y
+        spriteRotation = new Vector3(0, 0, -gyroRotation.y);  // ANDROID without x if, otherwise -y
         targetRotation = Quaternion.Euler(spriteRotation); //easing
         if (gyroRotation.y > minPourAngleY && gyroRotation.y < maxPourAngleY) //check if we are pouring correct direction
         {

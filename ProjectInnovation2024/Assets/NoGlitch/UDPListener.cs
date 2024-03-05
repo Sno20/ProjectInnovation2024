@@ -11,6 +11,7 @@ public class UDPListener : MonoBehaviour {
   private IPEndPoint endPoint;
 
   public Quaternion gyroQuaternion;
+  public float accelerationSqrMagnitude;
 
   private void Start() {
     client = new UdpClient(8089);
@@ -33,6 +34,11 @@ public class UDPListener : MonoBehaviour {
         string gyroData = inString.Substring(5);
         gyroQuaternion = StringToQuaternion(gyroData);
         //Debug.Log($"Received Gyro Data: {gyroData} from {endPoint}");
+      }
+      else if (inString.StartsWith("ACCEL:")) {
+        string accelData = inString.Substring(6);
+        accelerationSqrMagnitude = float.Parse(accelData);
+        //Debug.Log($"Received Acceleration Squared Magnitude: {accelerationSqrMagnitude} from {endPoint}");
       }
     }
   }

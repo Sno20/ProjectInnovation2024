@@ -2,10 +2,10 @@ using UnityEngine;
 using TMPro;
 using WebSocketSharp;
 
-public class WindowsClient : MonoBehaviour
+public class MobileClient : MonoBehaviour
 {
     private WebSocket socket;
-    public TextMeshProUGUI gameCodeText;
+    public TMP_InputField codeInput;
 
     void Start()
     {
@@ -14,15 +14,13 @@ public class WindowsClient : MonoBehaviour
         socket.OnOpen += (sender, e) =>
         {
             Debug.Log("WebSocket connection opened");
-            // Send a message to the server indicating that the Windows app is connected
-            socket.Send("WindowsConnected");
         };
 
         socket.OnMessage += (sender, e) =>
         {
             // Handle incoming messages from the server
             Debug.Log($"Received message from server: {e.Data}");
-            // Process the received message (e.g., extract the game code or handle 'MobileConnected')
+            // Process the received message (e.g., handle 'MobileConnected')
             ProcessMessage(e.Data);
         };
 
@@ -43,14 +41,12 @@ public class WindowsClient : MonoBehaviour
     void ProcessMessage(string message)
     {
         // Process the received message
-        if (message.StartsWith("GameCode:"))
+        if (message == "MobileConnected")
         {
-            // Extract the game code from the message
-            string gameCode = message.Substring("GameCode:".Length);
-            // Log the received game code
-            Debug.Log($"Received game code: {gameCode}");
-            // Display the received game code in the TextMeshPro
-            gameCodeText.text = $"Game Code: {gameCode}";
+            // Log that the mobile is connected
+            Debug.Log("Mobile connected");
+            // Transition to the game scene when the mobile is connected
+            UnityEngine.SceneManagement.SceneManager.LoadScene("YourGameScene");
         }
         else
         {
@@ -67,4 +63,23 @@ public class WindowsClient : MonoBehaviour
             socket.Close();
         }
     }
+
+    // Function to send the entered code to the server
+    public void SendEnteredCode()
+{
+    // Check if the WebSocket connection is open
+    if (socket != null && socket.IsAlive)
+    {
+        // Get the entered code from the TMP_InputField
+        string enteredCode = codeInput.text;
+        Debug.Log($"Sending Entered Code: {enteredCode}");
+
+        // Send a message to the server indicating the entered code
+        socket.Send($"EnteredCode:{enteredCode}");
+    }
+    else
+    {
+        Debug.LogError("WebSocket connection is not open.");
+    }
+}
 }

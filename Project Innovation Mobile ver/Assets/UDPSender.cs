@@ -22,35 +22,35 @@ public class UDPSender : MonoBehaviour {
     else {
       //Debug.Log("Gyroscope not supported"); //message if not gyroscope supported
     }
-
   }
 
   public void SetIP(string ip) {
     targetIP = text.text;
-    //Debug.Log("Target IP: " + targetIP);
+    SendIP();
   }
 
-  void SendToTarget(byte[] packet) {
-    //Debug.Log("Sending packet to target");
-    client.Send(packet, packet.Length, targetIP, port);
-  }
-
-  void Update() {
-    if (messageToSend != null) {
-      if (targetIP != null) {
-        byte[] bytes = Encoding.ASCII.GetBytes(messageToSend);
-        SendToTarget(bytes);
-      }
-      messageToSend = null;
+  private void SendToTarget(byte[] packet) {
+    if (!string.IsNullOrEmpty(targetIP)) { // Make sure the target IP is not null or empty
+      client.Send(packet, packet.Length, targetIP, port);
     }
+  }
 
-    if (!string.IsNullOrEmpty(targetIP)) { // ensure IP is set before sendingk
+  private void Update() {
+    if (!string.IsNullOrEmpty(targetIP)) { // ensure IP is set before sending
       SendGyroData();
       SendAccelerationData();
     }
   }
 
-  void SendGyroData() { //original way to send data
+  private void SendIP() {
+    if (!string.IsNullOrEmpty(targetIP)) {
+      string message = "IP: " + targetIP; 
+      byte[] bytes = Encoding.ASCII.GetBytes(message);
+      SendToTarget(bytes);
+    }
+  }
+
+  private void SendGyroData() { 
     if (Input.gyro.enabled) {
       Quaternion gyroAttitude = Input.gyro.attitude;
       string gyroData = "GYRO:" + QuaternionToString(gyroAttitude);
@@ -59,15 +59,15 @@ public class UDPSender : MonoBehaviour {
     }
   }
 
-  string QuaternionToString(Quaternion q) {
-    return $"{q.x},{q.y},{q.z},{q.w}";
-  }
-  void SendAccelerationData() {
+  private void SendAccelerationData() {
     Vector3 acceleration = Input.acceleration;
     float sqrMagnitude = acceleration.sqrMagnitude; // Calculate squared magnitude
     string accelerationData = "ACCEL:" + sqrMagnitude.ToString();
     byte[] bytes = Encoding.ASCII.GetBytes(accelerationData);
     SendToTarget(bytes);
+  }
+  string QuaternionToString(Quaternion q) {
+    return $"{q.x},{q.y},{q.z},{q.w}";
   }
 
 }

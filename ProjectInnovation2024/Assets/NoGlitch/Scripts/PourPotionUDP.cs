@@ -9,8 +9,6 @@ public class PourPotionUDP : MonoBehaviour {
   private UDPListener udpListener; //cache component
   private Quaternion previousGyroData;
 
-  [SerializeField] private bool iphone = false; //has to be set before pouring is active
-
   private float minPhoneRotationX;
   private float maxPhoneRotationX;
   private float minPourAngleY;
@@ -51,7 +49,7 @@ public class PourPotionUDP : MonoBehaviour {
       Quaternion correctedOrientation = currentGyroData * calibration.initialOrientation; //apply the calibration offset to the current orientation
       Vector3 gyroRotation = correctedOrientation.eulerAngles; // Use corrected orientation
 
-      if (iphone) {
+      if (calibration.iphone) {
         if (gyroRotation.x > minPhoneRotationX || gyroRotation.x < maxPhoneRotationX) { //check we are pouring within the phone upright position within the x range
           Vector3 spriteRotation = new Vector3(0, 0, -gyroRotation.y);  // IPHONE
           targetRotation = Quaternion.Euler(spriteRotation); //easing
@@ -84,7 +82,7 @@ public class PourPotionUDP : MonoBehaviour {
   }
 
   private void CheckPhone() {
-    if (iphone) {
+    if (calibration.iphone) {
       minPhoneRotationX = 330;
       maxPhoneRotationX = 30;
       minPourAngleY = 180;

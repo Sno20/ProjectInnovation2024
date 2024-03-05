@@ -18,7 +18,6 @@ public class UVLightUDP : MonoBehaviour {
   [SerializeField] private float maxUVAngleY = 255; //maximum right when faced away
 
   [SerializeField] private GameObject textBox;
-  [SerializeField] private bool iphone = false;
 
   private void Start() {
     if (senderListener != null) {
@@ -42,10 +41,10 @@ public class UVLightUDP : MonoBehaviour {
     Quaternion currentGyroData = udpListener.gyroQuaternion;
     Vector3 gyroRot = new Vector3(currentGyroData.eulerAngles.x, currentGyroData.eulerAngles.y, currentGyroData.eulerAngles.z); //set gyro input to vector3
 
-    if (iphone && gyroRot.x > minPhoneRotationX && gyroRot.x < maxPhoneRotationX && gyroRot.y > minUVAngleY && gyroRot.y < maxUVAngleY) { //check gyro x and y rotation if screen is positioned away from player
+    if (calibration.iphone && gyroRot.x > minPhoneRotationX && gyroRot.x < maxPhoneRotationX && gyroRot.y > minUVAngleY && gyroRot.y < maxUVAngleY) { //check gyro x and y rotation if screen is positioned away from player
       textBox.SetActive(true); //show secret text
     }
-    else if (!iphone && gyroRot.x < minPhoneRotationX && gyroRot.x > maxPhoneRotationX && gyroRot.y > minUVAngleY && gyroRot.y < maxUVAngleY) {
+    else if (!calibration.iphone && gyroRot.x < minPhoneRotationX && gyroRot.x > maxPhoneRotationX && gyroRot.y > minUVAngleY && gyroRot.y < maxUVAngleY) {
       textBox.SetActive(true); //show secret text
     }
     else {
@@ -54,7 +53,7 @@ public class UVLightUDP : MonoBehaviour {
   }
 
   private void CheckPhone() {
-    if (iphone) {
+    if (calibration.iphone) {
       minPhoneRotationX = 180;
       maxPhoneRotationX = 320;
       minUVAngleY = 60;

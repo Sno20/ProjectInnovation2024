@@ -10,8 +10,6 @@ public class KeyUDP : MonoBehaviour {
   [SerializeField] private GameObject calibrationController;
   private Calibration calibration;
 
-  [SerializeField] private bool iphone = false;
-
   [SerializeField] private bool easing = false;
   [SerializeField] private float rotationSpeed = 2f;
   private Quaternion targetRotation;
@@ -87,7 +85,7 @@ public class KeyUDP : MonoBehaviour {
   }
 
   private void CheckPhone() {
-    if (iphone) {
+    if (calibration.iphone) {
       minPhoneRotationX = 270f;
       maxPhoneRotationX = 310f;
       minTurnAngleZ = 190f;

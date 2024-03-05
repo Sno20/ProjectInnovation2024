@@ -518,7 +518,7 @@ Transform:
   m_Children:
   - {fileID: 417032689}
   - {fileID: 1886972485}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1635796350}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -16.067}
 --- !u!1 &219461171
 GameObject:
@@ -1235,14 +1235,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83ce1e2a9bd31ca428db6432c91fa4f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minPhoneRotationX: 330
-  maxPhoneRotationX: 30
-  minPourAngleY: 0
-  maxPourAngleY: 180
-  mixGameObject: {fileID: 491003251}
-  thisParent: {fileID: 213502205}
-  calibration: {fileID: 172512726}
+  iphone: 0
   rotationSpeed: 5
+  textBox: {fileID: 0}
 --- !u!212 &461851221
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1340,7 +1335,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 431f4254740d9e543b2c56cc2bf290ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  redBeaker: {fileID: 21300000, guid: 79e710e35c9fc304ab76eec297c87074, type: 3}
   purpleBeaker: {fileID: 21300000, guid: 5b873548d3c4a3145adcef191ef8aa5c, type: 3}
 --- !u!212 &491003254
 SpriteRenderer:
@@ -3352,7 +3346,7 @@ GameObject:
   - component: {fileID: 1598786745}
   - component: {fileID: 1598786744}
   - component: {fileID: 1598786743}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: BlackBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3534,6 +3528,7 @@ Transform:
   - {fileID: 491003252}
   - {fileID: 712734465}
   - {fileID: 1529949742}
+  - {fileID: 213502207}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1635796351
@@ -4282,6 +4277,7 @@ MonoBehaviour:
   minUVAngleY: 60
   maxUVAngleY: 255
   textBox: {fileID: 2113882380}
+  bigPaper: {fileID: 0}
 --- !u!212 &1998797916
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4908,4 +4904,3 @@ SceneRoots:
   - {fileID: 1751878553}
   - {fileID: 1867736589}
   - {fileID: 1635796350}
-  - {fileID: 213502207}

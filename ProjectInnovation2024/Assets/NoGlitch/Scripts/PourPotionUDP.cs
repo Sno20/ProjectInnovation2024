@@ -6,7 +6,7 @@ public class PourPotionUDP : MonoBehaviour {
 
   [SerializeField] private GameObject senderListener;
 
-  private UDPListener udpListener; //cache component
+  private PcListener pcListener; //cache component
   private Quaternion previousGyroData;
 
   private float minPhoneRotationX;
@@ -25,7 +25,7 @@ public class PourPotionUDP : MonoBehaviour {
 
   void Start() {
     if (senderListener != null) {
-      udpListener = senderListener.GetComponent<UDPListener>();
+      pcListener = senderListener.GetComponent<PcListener>();
     }
 
     if (calibrationController != null) {
@@ -43,7 +43,7 @@ public class PourPotionUDP : MonoBehaviour {
     GyroCheck();
   }
   private void GyroCheck() {
-    Quaternion currentGyroData = udpListener.gyroQuaternion;
+    Quaternion currentGyroData = pcListener.gyroQuaternion;
     if (currentGyroData != previousGyroData) { //only update when the value changes
 
       Quaternion correctedOrientation = currentGyroData * calibration.initialOrientation; //apply the calibration offset to the current orientation

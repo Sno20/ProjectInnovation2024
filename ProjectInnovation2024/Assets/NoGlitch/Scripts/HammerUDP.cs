@@ -6,7 +6,7 @@ public class HammerUDP : MonoBehaviour
 {
 
   [SerializeField] private GameObject senderListener;
-  private UDPListener udpListener; //cache component
+  private PcListener pcListener; //cache component
 
   private int swingCount = 0;
   private bool check = false;
@@ -15,13 +15,13 @@ public class HammerUDP : MonoBehaviour
 
   void Start() {
     if (senderListener != null) {
-      udpListener = senderListener.GetComponent<UDPListener>();
+      pcListener = senderListener.GetComponent<PcListener>();
     }
   }
 
   void Update() {
 
-    if (udpListener.accelerationSqrMagnitude > 30f) {
+    if (pcListener.accelerationSqrMagnitude > 30f) {
       swingCount += 1;
     }
 

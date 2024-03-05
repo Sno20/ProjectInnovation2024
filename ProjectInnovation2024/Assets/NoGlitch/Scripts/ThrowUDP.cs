@@ -5,18 +5,18 @@ using UnityEngine;
 public class ThrowUDP : MonoBehaviour {
 
   [SerializeField] private GameObject senderListener;
-  private UDPListener udpListener; //cache component
+  private PcListener pcListener; //cache component
 
   [SerializeField] private GameObject explosionImage;
 
   void Start() {
     if (senderListener != null) {
-      udpListener = senderListener.GetComponent<UDPListener>();
+      pcListener = senderListener.GetComponent<PcListener>();
     }
   }
 
   void Update() {
-    if (udpListener.accelerationSqrMagnitude > 30f) {
+    if (pcListener.accelerationSqrMagnitude > 30f) {
       Explosion();
     }
   }

@@ -6,7 +6,7 @@ using System.Text;
 using System;
 using TMPro;
 
-public class UDPSender : MonoBehaviour {
+public class PhoneSender : MonoBehaviour {
   //MOBILE
 
   private const int port = 8089;

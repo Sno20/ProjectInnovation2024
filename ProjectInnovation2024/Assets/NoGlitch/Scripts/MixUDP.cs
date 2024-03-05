@@ -5,7 +5,7 @@ using UnityEngine;
 public class MixUDP : MonoBehaviour {
 
   [SerializeField] private GameObject senderListener;
-  private UDPListener udpListener; //cache component
+  private PcListener pcListener; //cache component
 
   [SerializeField] Sprite purpleBeaker;
   private int swingCount = 0;
@@ -13,13 +13,13 @@ public class MixUDP : MonoBehaviour {
 
   private void Start() {
     if (senderListener != null) {
-      udpListener = senderListener.GetComponent<UDPListener>();
+      pcListener = senderListener.GetComponent<PcListener>();
     }
   }
 
   private void Update() {
 
-    if (udpListener.accelerationSqrMagnitude > 20f) {
+    if (pcListener.accelerationSqrMagnitude > 20f) {
       swingCount++;
 
     }

@@ -4,7 +4,7 @@ using System.Net.Sockets;
 using System.Text;
 using TMPro;
 
-public class UDPListener : MonoBehaviour {
+public class PcListener : MonoBehaviour {
 
   //PC
 
@@ -43,7 +43,7 @@ public class UDPListener : MonoBehaviour {
     while (client.Available > 0) {
       byte[] inBytes = client.Receive(ref endPoint);
       string inString = Encoding.UTF8.GetString(inBytes);
-      
+
       if (inString.StartsWith("IP:")) {
         Debug.Log($"Received IP: {inString.Substring(3)} from {endPoint}");
         string receivedIP = inString.Substring(3).Trim();
@@ -79,7 +79,7 @@ public class UDPListener : MonoBehaviour {
     return Quaternion.identity;
   }
 
-    private void OnDestroy() {
+  private void OnDestroy() {
     if (client != null)
       client.Close();
   }

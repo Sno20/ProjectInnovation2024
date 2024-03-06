@@ -105,7 +105,7 @@ public class PourPotionUDP : MonoBehaviour
 
     private IEnumerator WaitSomeSecs()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2);
         vessel.GetComponent<MixUDP>().FinishedPouring();
     }
 

@@ -12,7 +12,6 @@ public class Calibration : MonoBehaviour
     private UDPListener udpListener; //cache component
     private GameManager gameManager;
 
-    [SerializeField] private GameObject proceedButton;
 
 
     public Quaternion initialOrientation;
@@ -54,7 +53,6 @@ public class Calibration : MonoBehaviour
         {
             outline.effectColor = succesColor;
         }
-        CheckProceed();
     }
 
     public void CalibrateGyro()
@@ -75,14 +73,7 @@ public class Calibration : MonoBehaviour
         iphone = false;
         choseVersion = true;
     }
-    void CheckProceed()
-    {
-        if (proceedButton != null)
-        {
-            if (isCalibrated && choseVersion) proceedButton.SetActive(true);
-        }
-    }
-
+    
     public void Proceed()
     {
 

@@ -49,6 +49,8 @@ public class PourPotionUDP : MonoBehaviour
         {
             return;
         }
+
+        Debug.Log("is calibrated");
         CheckPhone();
         GyroCheck();
 

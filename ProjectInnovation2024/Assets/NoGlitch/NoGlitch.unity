@@ -342,7 +342,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1904840830}
         m_TargetAssemblyTypeName: Calibration, Assembly-CSharp
         m_MethodName: CalibrateGyro
         m_Mode: 1
@@ -583,7 +583,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1904840830}
         m_TargetAssemblyTypeName: Calibration, Assembly-CSharp
         m_MethodName: IsIphone
         m_Mode: 1
@@ -959,6 +959,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   senderListener: {fileID: 1489460627}
+  hammerObj: {fileID: 0}
+  textBox: {fileID: 0}
+  hammer: 0
+  potionObj: {fileID: 0}
+  potion: 0
   brokenGlass: {fileID: 21300000, guid: e0275031ee2a3384dab14db1874ecb19, type: 3}
 --- !u!1 &481746062
 GameObject:
@@ -975,7 +980,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &481746063
 Transform:
   m_ObjectHideFlags: 0
@@ -1158,7 +1163,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   senderListener: {fileID: 1489460627}
+  redBeaker: {fileID: 0}
   purpleBeaker: {fileID: 21300000, guid: 5b873548d3c4a3145adcef191ef8aa5c, type: 3}
+  check: 0
 --- !u!212 &847441517
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1275,6 +1282,7 @@ MonoBehaviour:
   iphone: 1
   rotationSpeed: 5
   textBox: {fileID: 1100789660}
+  purpleBeaker: {fileID: 0}
 --- !u!212 &903208904
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1340,8 +1348,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   senderListener: {fileID: 1489460627}
-  calibrationController: {fileID: 0}
+  calibrationController: {fileID: 1904840829}
   rotationSpeed: 5
+  vessel: {fileID: 1683243065}
 --- !u!1 &943326652
 GameObject:
   m_ObjectHideFlags: 0
@@ -1473,6 +1482,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   senderListener: {fileID: 1489460627}
   explosionImage: {fileID: 1158089786}
+  explosion: 0
 --- !u!1 &1057433128
 GameObject:
   m_ObjectHideFlags: 0
@@ -1518,13 +1528,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 533963f47de62a649926ed4dce086c57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  senderListener: {fileID: 1489460627}
+  senderListner: {fileID: 0}
   calibrationController: {fileID: 0}
   minPhoneRotationX: 270
   maxPhoneRotationX: 360
   minUVAngleY: 240
   maxUVAngleY: 300
   textBox: {fileID: 674308726}
+  discovered: 0
 --- !u!1 &1063289454
 GameObject:
   m_ObjectHideFlags: 0
@@ -1859,7 +1870,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1904840830}
         m_TargetAssemblyTypeName: Calibration, Assembly-CSharp
         m_MethodName: IsAndroid
         m_Mode: 1
@@ -2402,6 +2413,8 @@ MonoBehaviour:
   maxPhoneRotationX: 310
   minTurnAngleZ: 190
   maxTurnAngleZ: 200
+  door: {fileID: 0}
+  doorOpen: {fileID: 0}
 --- !u!1 &1787612721
 GameObject:
   m_ObjectHideFlags: 0
@@ -2672,6 +2685,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1894413085}
   m_CullTransparentMesh: 1
+--- !u!1 &1904840829
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1904840831}
+  - component: {fileID: 1904840830}
+  m_Layer: 0
+  m_Name: CalibrationManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1904840830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1904840829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 443d53d9acaf63a48b8143f81cbceb1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  senderListner: {fileID: 1489460627}
+  initialOrientation: {x: 0, y: 0, z: 0, w: 0}
+  isCalibrated: 0
+  iphone: 0
+  outline: {fileID: 355020893}
+--- !u!4 &1904840831
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1904840829}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.34320763, y: 1.1840394, z: 0.035251882}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2035179299
 GameObject:
   m_ObjectHideFlags: 0
@@ -2891,3 +2953,4 @@ SceneRoots:
   - {fileID: 981358174}
   - {fileID: 2068178052}
   - {fileID: 1392926337}
+  - {fileID: 1904840831}

@@ -25,23 +25,26 @@ public class MixUDP : MonoBehaviour
 
     private void Update()
     {
-        if (finishedPouring)
+        if (!finishedPouring)
         {
-            if (this.gameObject.GetComponent<PourPotionUDP>() != null)
-            {
-                if (udpListener.accelerationSqrMagnitude > 20f)
-                {
-                    swingCount++;
-
-                }
-                if (!check && swingCount >= 20)
-                {
-                    this.gameObject.GetComponent<SpriteRenderer>().sprite = purpleBeaker;
-                    check = true;
-                }
-
-            }
+            return;
         }
+        Debug.Log("finished pourning");
+        /*if (this.gameObject.GetComponent<PourPotionUDP>() != null)
+        {*/
+        if (udpListener.accelerationSqrMagnitude > 20f)
+        {
+            swingCount++;
+
+        }
+        if (!check && swingCount >= 20)
+        {
+            this.gameObject.GetComponent<SpriteRenderer>().sprite = purpleBeaker;
+            check = true;
+        }
+
+        //}
+
     }
 
     public void FinishedPouring()

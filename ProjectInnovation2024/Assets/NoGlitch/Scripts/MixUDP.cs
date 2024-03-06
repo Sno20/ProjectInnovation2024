@@ -2,30 +2,54 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MixUDP : MonoBehaviour {
+public class MixUDP : MonoBehaviour
+{
 
   [SerializeField] private GameObject senderListener;
   private PcListener pcListener; //cache component
 
-  [SerializeField] Sprite purpleBeaker;
-  private int swingCount = 0;
-  private bool check = false;
+    [SerializeField] private Sprite redBeaker;
+    [SerializeField] private Sprite purpleBeaker;
 
-  private void Start() {
-    if (senderListener != null) {
-      pcListener = senderListener.GetComponent<PcListener>();
+    private bool finishedPouring = false;
+    private int swingCount = 0;
+    public bool check = false;
+
+    private void Start()
+    {
+        if (senderListener != null)
+        {
+            udpListener = senderListener.GetComponent<UDPListener>();
+        }
     }
-  }
 
-  private void Update() {
+    private void Update()
+    {
+        if (!finishedPouring)
+        {
+            return;
+        }
+        Debug.Log("finished pourning");
+        /*if (this.gameObject.GetComponent<PourPotionUDP>() != null)
+        {*/
+        if (udpListener.accelerationSqrMagnitude > 20f)
+        {
+            swingCount++;
 
-    if (pcListener.accelerationSqrMagnitude > 20f) {
-      swingCount++;
+        }
+        if (!check && swingCount >= 20)
+        {
+            this.gameObject.GetComponent<SpriteRenderer>().sprite = purpleBeaker;
+            check = true;
+        }
+
+        //}
 
     }
-    if (!check && swingCount >= 20) {
-      this.gameObject.GetComponent<SpriteRenderer>().sprite = purpleBeaker;
-      check = true;
+
+    public void FinishedPouring()
+    {
+        this.gameObject.GetComponent<SpriteRenderer>().sprite = redBeaker;
+        finishedPouring = true;
     }
-  }
 }

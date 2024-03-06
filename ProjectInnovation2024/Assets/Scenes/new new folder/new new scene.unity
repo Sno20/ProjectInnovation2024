@@ -237,7 +237,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   senderListner: {fileID: 1373863391}
-  proceedButton: {fileID: 0}
   initialOrientation: {x: 0, y: 0, z: 0, w: 0}
   isCalibrated: 0
   iphone: 0
@@ -1997,7 +1996,7 @@ MonoBehaviour:
   hammerObj: {fileID: 8267236}
   textBox: {fileID: 980066481}
   hammer: 0
-  potionObj: {fileID: 0}
+  potionObj: {fileID: 2108525871}
   potion: 0
   brokenGlass: {fileID: 21300000, guid: e0275031ee2a3384dab14db1874ecb19, type: 3}
 --- !u!212 &694325975
@@ -2061,8 +2060,8 @@ Transform:
   m_GameObject: {fileID: 694325973}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5, z: 0}
-  m_LocalScale: {x: 0.340604, y: 0.340604, z: 0.340604}
+  m_LocalPosition: {x: -0.0345, y: 1.5, z: 0}
+  m_LocalScale: {x: 0.59155285, y: 0.340604, z: 0.340604}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 277994654}
@@ -2555,7 +2554,7 @@ MonoBehaviour:
   senderListener: {fileID: 1373863391}
   calibrationController: {fileID: 36051308}
   rotationSpeed: 5
-  vessel: {fileID: 954515404}
+  vessel: {fileID: 1139357409}
 --- !u!212 &954515408
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2667,7 +2666,7 @@ Transform:
   m_GameObject: {fileID: 962453522}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.9, y: -0.34, z: 0}
+  m_LocalPosition: {x: 3.82, y: -3.68, z: 0}
   m_LocalScale: {x: 0.42, y: 0.76, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3157,7 +3156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   senderListener: {fileID: 1373863391}
-  redBeaker: {fileID: 0}
+  redBeaker: {fileID: 21300000, guid: e0e4f76e746c9c340935f18b172d5d37, type: 3}
   purpleBeaker: {fileID: 21300000, guid: 5b873548d3c4a3145adcef191ef8aa5c, type: 3}
   check: 0
 --- !u!1 &1156655638
@@ -3538,7 +3537,7 @@ MonoBehaviour:
   - {fileID: 1139357409}
   - {fileID: 2032763735}
   - {fileID: 951245850}
-  potionToPour: {fileID: 0}
+  potionToPour: {fileID: 954515404}
 --- !u!4 &1252021200
 Transform:
   m_ObjectHideFlags: 0

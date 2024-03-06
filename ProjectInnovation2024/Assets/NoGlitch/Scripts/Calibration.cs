@@ -2,57 +2,95 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEditor.SceneManagement;
+using UnityEngine.SceneManagement;
 
 public class Calibration : MonoBehaviour
 {
-  [SerializeField] private GameObject senderListener;
-  //private Quaternion gyroData;
+    [SerializeField] private GameObject senderListner;
+    //private Quaternion gyroData;
+    private UDPListener udpListener; //cache component
+    private GameManager gameManager;
 
-  private UDPListener udpListener; //cache component
-
-  public Quaternion initialOrientation;
-  public bool isCalibrated = false;
-  public bool iphone = false;
-
-  [SerializeField] private Outline outline;
-  private Color failColor = Color.red;
-  private Color succesColor = Color.green;
+    [SerializeField] private GameObject proceedButton;
 
 
-  private void Start() {
-    if (SystemInfo.supportsGyroscope) { //check if device has gyroscope
-      Input.gyro.enabled = true; //enable use of gyroscope
+    public Quaternion initialOrientation;
+    public bool isCalibrated = false;
+    public bool iphone = false;
+
+    [SerializeField] private Outline outline;
+    private Color failColor = Color.red;
+    private Color succesColor = Color.green;
+
+    private bool choseVersion = false;
+
+    private void Start()
+    {
+        if (SystemInfo.supportsGyroscope)
+        { //check if device has gyroscope
+            Input.gyro.enabled = true; //enable use of gyroscope
+        }
+        else
+        {
+            //Debug.Log("Gyroscope not supported"); //message if not supported
+        }
+
+        if (senderListner != null)
+        {
+            udpListener = senderListner.GetComponent<UDPListener>();
+        }
+
     }
-    else {
-      //Debug.Log("Gyroscope not supported"); //message if not supported
+
+    private void Update()
+    {
+        if (!isCalibrated)
+        {
+            outline.effectColor = failColor;
+            return;
+        }
+        else
+        {
+            outline.effectColor = succesColor;
+        }
+        CheckProceed();
     }
 
-    if (senderListener != null) {
-      udpListener = senderListener.GetComponent<UDPListener>();
+    public void CalibrateGyro()
+    {
+        Quaternion currentGyroData = udpListener.gyroQuaternion;
+        initialOrientation = Quaternion.Inverse(currentGyroData);
+        isCalibrated = true;
     }
-  }
 
-  private void Update() {
-    if (!isCalibrated) {
-      outline.effectColor = failColor;
-      return;
+    public void IsIphone()
+    {
+        iphone = true;
+        choseVersion = true;
     }
-    else {
-      outline.effectColor = succesColor;
+
+    public void IsAndroid()
+    {
+        iphone = false;
+        choseVersion = true;
     }
-  }
+    void CheckProceed()
+    {
+        if (proceedButton != null)
+        {
+            if (isCalibrated && choseVersion) proceedButton.SetActive(true);
+        }
+    }
 
-  public void CalibrateGyro() {
-    Quaternion currentGyroData = udpListener.gyroQuaternion;
-    initialOrientation = Quaternion.Inverse(currentGyroData);
-    isCalibrated = true;
-  }
+    public void Proceed()
+    {
 
-  public void IsIphone() {
-    iphone = true;
-  }
+        gameManager.initialOrientation = initialOrientation;
+        gameManager.isIphone = iphone;
+        gameManager.isCalibrated = isCalibrated;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
 
-  public void IsAndroid() {
-    iphone = false;
-  }
+    }
+
 }

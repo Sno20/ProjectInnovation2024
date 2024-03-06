@@ -1,27 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class ThrowUDP : MonoBehaviour {
+public class ThrowUDP : MonoBehaviour
+{
 
-  [SerializeField] private GameObject senderListener;
-  private UDPListener udpListener; //cache component
+    [SerializeField] private GameObject senderListener;
+    private UDPListener udpListener; //cache component
 
-  [SerializeField] private GameObject explosionImage;
+    [SerializeField] private GameObject explosionImage;
+    public bool explosion = false;
 
-  void Start() {
-    if (senderListener != null) {
-      udpListener = senderListener.GetComponent<UDPListener>();
+    void Start()
+    {
+        if (senderListener != null)
+        {
+            udpListener = senderListener.GetComponent<UDPListener>();
+        }
     }
-  }
 
-  void Update() {
-    if (udpListener.accelerationSqrMagnitude > 30f) {
-      Explosion();
+    void Update()
+    {
+        if (udpListener.accelerationSqrMagnitude > 30f)
+        {
+            Explosion();
+        }
     }
-  }
 
-  private void Explosion() {
-    explosionImage.SetActive(true);
-  }
+    private void Explosion()
+    {
+        explosionImage.SetActive(true);
+        explosion = true;
+    }
 }

@@ -23,6 +23,8 @@ public class PourPotion : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI textBox;
 
+    [SerializeField] Sprite purpleBeaker;
+
     private void Start()
     {
         if (SystemInfo.supportsGyroscope)

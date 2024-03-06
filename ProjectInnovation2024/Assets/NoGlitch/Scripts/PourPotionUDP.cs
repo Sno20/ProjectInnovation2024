@@ -5,8 +5,11 @@ using UnityEngine;
 public class PourPotionUDP : MonoBehaviour {
 
   [SerializeField] private GameObject senderListener;
+  private PcListener pcListener; //cache component
+  private PcSender pcSender; //cache component
 
-  private UDPListener udpListener; //cache component
+  [SerializeField] private string item = "PotionRed"; //has to be name of the item in the inventory
+
   private Quaternion previousGyroData;
 
   private float minPhoneRotationX;
@@ -25,7 +28,8 @@ public class PourPotionUDP : MonoBehaviour {
 
   void Start() {
     if (senderListener != null) {
-      udpListener = senderListener.GetComponent<UDPListener>();
+      pcListener = senderListener.GetComponent<PcListener>();
+      pcSender = senderListener.GetComponent<PcSender>();
     }
 
     if (calibrationController != null) {
@@ -43,7 +47,7 @@ public class PourPotionUDP : MonoBehaviour {
     GyroCheck();
   }
   private void GyroCheck() {
-    Quaternion currentGyroData = udpListener.gyroQuaternion;
+    Quaternion currentGyroData = pcListener.gyroQuaternion;
     if (currentGyroData != previousGyroData) { //only update when the value changes
 
       Quaternion correctedOrientation = currentGyroData * calibration.initialOrientation; //apply the calibration offset to the current orientation
@@ -61,7 +65,7 @@ public class PourPotionUDP : MonoBehaviour {
         }
       }
       else {
-        spriteRotation = new Vector3(0, 0, -gyroRotation.y);  // ANDROID without x if, otherwise -y
+        spriteRotation = new Vector3(0, 0, gyroRotation.y);  // ANDROID without x if, otherwise -y
         targetRotation = Quaternion.Euler(spriteRotation); //easing
         if (gyroRotation.y > minPourAngleY && gyroRotation.y < maxPourAngleY) //check if we are pouring correct direction
         {
@@ -77,6 +81,7 @@ public class PourPotionUDP : MonoBehaviour {
   private void Pour() {
     if (!didPour) {
       //Debug.Log("Pouring now");
+      pcSender.SendUsedItem(item);
     }
     didPour = true;
   }

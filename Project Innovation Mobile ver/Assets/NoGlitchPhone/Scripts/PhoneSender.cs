@@ -6,7 +6,7 @@ using System.Text;
 using System;
 using TMPro;
 
-public class UDPSender : MonoBehaviour {
+public class PhoneSender : MonoBehaviour {
   //MOBILE
 
   private const int port = 8089;
@@ -44,7 +44,7 @@ public class UDPSender : MonoBehaviour {
 
   private void SendIP() {
     if (!string.IsNullOrEmpty(targetIP)) {
-      string message = "IP: " + targetIP; 
+      string message = "IP:" + targetIP; 
       byte[] bytes = Encoding.ASCII.GetBytes(message);
       SendToTarget(bytes);
     }

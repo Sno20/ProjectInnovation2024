@@ -5,7 +5,7 @@ using UnityEngine;
 public class KeyUDP : MonoBehaviour {
   [SerializeField] private GameObject senderListener;
 
-  private UDPListener udpListener; //cache component
+  private PcListener pcListener; //cache component
 
   [SerializeField] private GameObject calibrationController;
   private Calibration calibration;
@@ -31,7 +31,7 @@ public class KeyUDP : MonoBehaviour {
     }
 
     if (senderListener != null) {
-      udpListener = senderListener.GetComponent<UDPListener>();
+      pcListener = senderListener.GetComponent<PcListener>();
     }
 
     if (calibrationController != null) {
@@ -53,7 +53,7 @@ public class KeyUDP : MonoBehaviour {
   }
 
   private void GyroCheck() {
-    Quaternion currentGyroData = udpListener.gyroQuaternion;
+    Quaternion currentGyroData = pcListener.gyroQuaternion;
     Quaternion correctedOrientation = currentGyroData * calibration.initialOrientation;
     Vector3 gyroRot = correctedOrientation.eulerAngles; // Use corrected orientation
 

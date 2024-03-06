@@ -8,7 +8,7 @@ public class Calibration : MonoBehaviour
   [SerializeField] private GameObject senderListener;
   //private Quaternion gyroData;
 
-  private UDPListener udpListener; //cache component
+  private PcListener pcListener; //cache component
 
   public Quaternion initialOrientation;
   public bool isCalibrated = false;
@@ -28,7 +28,7 @@ public class Calibration : MonoBehaviour
     }
 
     if (senderListener != null) {
-      udpListener = senderListener.GetComponent<UDPListener>();
+      pcListener = senderListener.GetComponent<PcListener>();
     }
   }
 
@@ -43,7 +43,7 @@ public class Calibration : MonoBehaviour
   }
 
   public void CalibrateGyro() {
-    Quaternion currentGyroData = udpListener.gyroQuaternion;
+    Quaternion currentGyroData = pcListener.gyroQuaternion;
     initialOrientation = Quaternion.Inverse(currentGyroData);
     isCalibrated = true;
   }

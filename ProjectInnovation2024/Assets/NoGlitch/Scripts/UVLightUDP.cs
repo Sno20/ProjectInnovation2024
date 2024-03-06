@@ -7,7 +7,7 @@ public class UVLightUDP : MonoBehaviour {
 
   [SerializeField] private GameObject senderListener;
 
-  private UDPListener udpListener; //cache component
+  private PcListener pcListener; //cache component
 
   [SerializeField] private GameObject calibrationController;
   private Calibration calibration;
@@ -21,7 +21,7 @@ public class UVLightUDP : MonoBehaviour {
 
   private void Start() {
     if (senderListener != null) {
-      udpListener = senderListener.GetComponent<UDPListener>();
+      pcListener = senderListener.GetComponent<PcListener>();
     }
 
     if (calibrationController != null) {
@@ -38,7 +38,7 @@ public class UVLightUDP : MonoBehaviour {
   }
 
   private void GyroCheck() {
-    Quaternion currentGyroData = udpListener.gyroQuaternion;
+    Quaternion currentGyroData = pcListener.gyroQuaternion;
     Vector3 gyroRot = new Vector3(currentGyroData.eulerAngles.x, currentGyroData.eulerAngles.y, currentGyroData.eulerAngles.z); //set gyro input to vector3
 
     if (calibration.iphone && gyroRot.x > minPhoneRotationX && gyroRot.x < maxPhoneRotationX && gyroRot.y > minUVAngleY && gyroRot.y < maxUVAngleY) { //check gyro x and y rotation if screen is positioned away from player

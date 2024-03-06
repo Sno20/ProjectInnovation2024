@@ -4,7 +4,7 @@ using System.Net.Sockets;
 using System.Text;
 using TMPro; // Make sure to include the TMPro namespace for access to TMP_InputField
 
-public class PCSender : MonoBehaviour {
+public class PcSender : MonoBehaviour {
 
   public int port = 8089;
   public string messageToSend = null;
@@ -31,8 +31,16 @@ public class PCSender : MonoBehaviour {
 
   private void SendIP() {
     if (!string.IsNullOrEmpty(targetIP)) {
-      string message = "IP: " + targetIP;
+      string message = "IP:" + targetIP;
       byte[] bytes = Encoding.ASCII.GetBytes(message);
+      SendToTarget(bytes);
+    }
+  }
+
+  public void SendUsedItem(string itemToSend) {
+    if (!string.IsNullOrEmpty(itemToSend) && !string.IsNullOrEmpty(targetIP)) {
+      itemToSend = "ITEM:" + itemToSend;
+      byte[] bytes = Encoding.ASCII.GetBytes(itemToSend);
       SendToTarget(bytes);
     }
   }

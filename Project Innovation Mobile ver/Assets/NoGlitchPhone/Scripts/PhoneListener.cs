@@ -12,10 +12,15 @@ public class MobileListener : MonoBehaviour {
   [SerializeField] private TextMeshProUGUI ipv4;
   private string currentIP;
 
+  [SerializeField] private GameObject inventoryController;
+  private Inventory inventory ; //cache component
+
   private void Start() {
     client = new UdpClient(8089);
     endPoint = new IPEndPoint(IPAddress.Any, 0);
     GetLocalIPAddress();
+
+    inventory = inventoryController.GetComponent<Inventory>();
   }
 
   // Update is called once per frame
@@ -39,6 +44,13 @@ public class MobileListener : MonoBehaviour {
           Debug.Log("Try again");
         }
       }
+      else if (inString.StartsWith("ITEM:")) {
+        string receivedItem = inString.Substring(5);
+        if (receivedItem != null) {
+          inventory.MarkItemAsUsed(receivedItem);
+          Debug.Log($"Received Item: {receivedItem} from {endPoint}");
+        }
+      }
     }
   }
 
@@ -54,8 +66,8 @@ public class MobileListener : MonoBehaviour {
   }
 
 
-    private void OnDestroy() {
-      if (client != null)
-        client.Close();
-    }
+  private void OnDestroy() {
+    if (client != null)
+      client.Close();
   }
+}

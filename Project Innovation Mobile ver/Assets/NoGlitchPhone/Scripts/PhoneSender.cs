@@ -44,7 +44,7 @@ public class PhoneSender : MonoBehaviour {
 
   private void SendIP() {
     if (!string.IsNullOrEmpty(targetIP)) {
-      string message = "IP: " + targetIP; 
+      string message = "IP:" + targetIP; 
       byte[] bytes = Encoding.ASCII.GetBytes(message);
       SendToTarget(bytes);
     }

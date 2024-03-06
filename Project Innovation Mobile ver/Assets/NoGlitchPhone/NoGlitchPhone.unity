@@ -809,8 +809,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 22.5}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 10.52, y: 10.76}
+  m_SizeDelta: {x: 355.59, y: 58.87}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &529074232
 MonoBehaviour:
@@ -1093,7 +1093,7 @@ GameObject:
   - component: {fileID: 841463978}
   - component: {fileID: 841463979}
   m_Layer: 0
-  m_Name: Inventory
+  m_Name: InventoryController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3223,6 +3223,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ipv4: {fileID: 465451437}
+  inventoryController: {fileID: 841463974}
 --- !u!1 &2097399583
 GameObject:
   m_ObjectHideFlags: 0

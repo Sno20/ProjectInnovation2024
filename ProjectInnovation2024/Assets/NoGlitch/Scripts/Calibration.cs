@@ -12,6 +12,7 @@ public class Calibration : MonoBehaviour
 
   public Quaternion initialOrientation;
   public bool isCalibrated = false;
+  public bool iphone = false;
 
   [SerializeField] private Outline outline;
   private Color failColor = Color.red;
@@ -45,5 +46,13 @@ public class Calibration : MonoBehaviour
     Quaternion currentGyroData = udpListener.gyroQuaternion;
     initialOrientation = Quaternion.Inverse(currentGyroData);
     isCalibrated = true;
+  }
+
+  public void IsIphone() {
+    iphone = true;
+  }
+
+  public void IsAndroid() {
+    iphone = false;
   }
 }

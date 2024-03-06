@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using UnityEngine;
 
 public class MixUDP : MonoBehaviour
@@ -19,7 +20,7 @@ public class MixUDP : MonoBehaviour
     {
         if (senderListener != null)
         {
-            udpListener = senderListener.GetComponent<UDPListener>();
+            pcListener = senderListener.GetComponent<PcListener>();
         }
     }
 
@@ -32,7 +33,7 @@ public class MixUDP : MonoBehaviour
         Debug.Log("finished pourning");
         /*if (this.gameObject.GetComponent<PourPotionUDP>() != null)
         {*/
-        if (udpListener.accelerationSqrMagnitude > 20f)
+        if (pcListener.accelerationSqrMagnitude > 20f)
         {
             swingCount++;
 

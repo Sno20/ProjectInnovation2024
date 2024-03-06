@@ -5,13 +5,13 @@ using UnityEngine;
 public class PourPotionUDP : MonoBehaviour
 {
 
-  [SerializeField] private GameObject senderListener;
-  private PcListener pcListener; //cache component
-  private PcSender pcSender; //cache component
+    [SerializeField] private GameObject senderListener;
+    private PcListener pcListener; //cache component
+    private PcSender pcSender; //cache component
 
-  [SerializeField] private string item = "PotionRed"; //has to be name of the item in the inventory
+    [SerializeField] private string item = "PotionRed"; //has to be name of the item in the inventory
 
-  private Quaternion previousGyroData;
+    private Quaternion previousGyroData;
 
     private float minPhoneRotationX;
     private float maxPhoneRotationX;
@@ -27,17 +27,15 @@ public class PourPotionUDP : MonoBehaviour
 
     [SerializeField] private GameObject vessel;
 
-  void Start() {
-    if (senderListener != null) {
-      pcListener = senderListener.GetComponent<PcListener>();
-      pcSender = senderListener.GetComponent<PcSender>();
-    }
+    private bool didPour = false;
+
 
     void Start()
     {
         if (senderListener != null)
         {
-            udpListener = senderListener.GetComponent<UDPListener>();
+            pcListener = senderListener.GetComponent<PcListener>();
+            pcSender = senderListener.GetComponent<PcSender>();
         }
 
         if (calibrationController != null)
@@ -65,7 +63,7 @@ public class PourPotionUDP : MonoBehaviour
     }
     private void GyroCheck()
     {
-        Quaternion currentGyroData = udpListener.gyroQuaternion;
+        Quaternion currentGyroData = pcListener.gyroQuaternion;
         if (currentGyroData != previousGyroData)
         { //only update when the value changes
 
@@ -105,21 +103,19 @@ public class PourPotionUDP : MonoBehaviour
         if (!didPour)
         {
             //Debug.Log("Pouring now");
+            pcSender.SendUsedItem(item);
         }
         didPour = true;
         StartCoroutine(WaitSomeSecs());
     }
+    
 
     private IEnumerator WaitSomeSecs()
     {
         yield return new WaitForSeconds(3);
         vessel.GetComponent<MixUDP>().FinishedPouring();
-  private void Pour() {
-    if (!didPour) {
-      //Debug.Log("Pouring now");
-      pcSender.SendUsedItem(item);
+        
     }
-
 
     private void CheckPhone()
     {
@@ -139,4 +135,3 @@ public class PourPotionUDP : MonoBehaviour
         }
     }
 }
-

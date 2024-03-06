@@ -7,8 +7,8 @@ using UnityEngine.UIElements;
 public class HammerUDP : MonoBehaviour
 {
 
-  [SerializeField] private GameObject senderListener;
-  private PcListener pcListener; //cache component
+    [SerializeField] private GameObject senderListener;
+    private PcListener pcListener; //cache component
 
 
     private int swingCount = 0;
@@ -27,14 +27,14 @@ public class HammerUDP : MonoBehaviour
     {
         if (senderListener != null)
         {
-            udpListener = senderListener.GetComponent<UDPListener>();
+            pcListener = senderListener.GetComponent<PcListener>();
         }
     }
 
     void Update()
     {
 
-        if (hammer && udpListener.accelerationSqrMagnitude > 30f)
+        if (hammer && pcListener.accelerationSqrMagnitude > 30f)
         {
             swingCount += 1;
         }
@@ -50,7 +50,7 @@ public class HammerUDP : MonoBehaviour
     {
         hammer = true;
         hammerObj.SetActive(false);
-        
+
     }
 
     public void PickedPotion()

@@ -16,13 +16,13 @@ public class ThrowUDP : MonoBehaviour
     {
         if (senderListener != null)
         {
-            udpListener = senderListener.GetComponent<UDPListener>();
+            pcListener = senderListener.GetComponent<PcListener>();
         }
     }
 
     void Update()
     {
-        if (udpListener.accelerationSqrMagnitude > 30f)
+        if (pcListener.accelerationSqrMagnitude > 30f)
         {
             Explosion();
         }

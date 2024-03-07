@@ -1,11 +1,14 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class InGameDialogue : MonoBehaviour
 {
     public TextMeshProUGUI textComponent;
+    public Image imageComponent; // Reference to the Image component for displaying images
     public string[] lines;
+    public Sprite[] images; // Array of images corresponding to each voice line
     public float textSpeed;
     private int index;
 
@@ -13,6 +16,7 @@ public class InGameDialogue : MonoBehaviour
     void Start()
     {
         textComponent.text = string.Empty;
+        imageComponent.sprite = null; // Set the initial image to null
     }
 
     // Call this method to trigger the in-game dialogue
@@ -36,6 +40,11 @@ public class InGameDialogue : MonoBehaviour
             {
                 StopAllCoroutines();
                 textComponent.text = lines[index];
+                // Display the corresponding image
+                if (index < images.Length)
+                {
+                    imageComponent.sprite = images[index];
+                }
             }
         }
     }
@@ -53,6 +62,12 @@ public class InGameDialogue : MonoBehaviour
             textComponent.text += c;
             yield return new WaitForSeconds(textSpeed);
         }
+
+        // Display the corresponding image after typing the text
+        if (index < images.Length)
+        {
+            imageComponent.sprite = images[index];
+        }
     }
 
     void NextLine()
@@ -61,6 +76,7 @@ public class InGameDialogue : MonoBehaviour
         {
             index++;
             textComponent.text = string.Empty;
+            imageComponent.sprite = null; // Clear the image when moving to the next line
             StartCoroutine(TypeLine());
         }
         else

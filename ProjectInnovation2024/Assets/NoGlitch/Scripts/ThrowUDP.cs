@@ -5,9 +5,10 @@ using UnityEngine;
 
 public class ThrowUDP : MonoBehaviour
 {
+  [SerializeField] private string item = "PotionNew"; //has to be name of the item in the inventory
 
-    [SerializeField] private GameObject senderListener;
-    private UDPListener udpListener; //cache component
+  [SerializeField] private GameObject senderListener;
+  private PcListener pcListener; //cache component
 
     [SerializeField] private GameObject sideRoomButton;
     public bool explosion = false;
@@ -16,13 +17,13 @@ public class ThrowUDP : MonoBehaviour
     {
         if (senderListener != null)
         {
-            udpListener = senderListener.GetComponent<UDPListener>();
+            pcListener = senderListener.GetComponent<PcListener>();
         }
     }
 
     void Update()
     {
-        if (udpListener.accelerationSqrMagnitude > 30f)
+        if (pcListener.accelerationSqrMagnitude > 30f)
         {
             Explosion();
         }

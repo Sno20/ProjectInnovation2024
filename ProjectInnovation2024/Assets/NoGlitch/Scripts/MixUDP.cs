@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using UnityEngine;
 
 public class MixUDP : MonoBehaviour
 {
 
-    [SerializeField] private GameObject senderListener;
-    private UDPListener udpListener; //cache component
+  [SerializeField] private string item = "PotionSecond"; //has to be name of the item in the inventory
+
+  [SerializeField] private GameObject senderListener;
+  private PcListener pcListener; //cache component
 
     [SerializeField] private Sprite redBeaker;
     [SerializeField] private Sprite purpleBeaker;
@@ -19,7 +22,7 @@ public class MixUDP : MonoBehaviour
     {
         if (senderListener != null)
         {
-            udpListener = senderListener.GetComponent<UDPListener>();
+            pcListener = senderListener.GetComponent<PcListener>();
         }
     }
 
@@ -32,7 +35,7 @@ public class MixUDP : MonoBehaviour
         Debug.Log("finished pourning");
         /*if (this.gameObject.GetComponent<PourPotionUDP>() != null)
         {*/
-        if (udpListener.accelerationSqrMagnitude > 20f)
+        if (pcListener.accelerationSqrMagnitude > 20f)
         {
             swingCount++;
 

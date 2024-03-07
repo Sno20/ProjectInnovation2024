@@ -2,16 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEditor.SceneManagement;
+//using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
+using System.Net.Sockets;
 
 public class Calibration : MonoBehaviour
 {
     [SerializeField] private GameObject senderListner;
     //private Quaternion gyroData;
-    private UDPListener udpListener; //cache component
     private GameManager gameManager;
 
+    private PcListener pcListener; //cache component
 
 
     public Quaternion initialOrientation;
@@ -37,8 +38,9 @@ public class Calibration : MonoBehaviour
 
         if (senderListner != null)
         {
-            udpListener = senderListner.GetComponent<UDPListener>();
+            pcListener = senderListner.GetComponent<PcListener>();
         }
+
 
     }
 
@@ -53,14 +55,9 @@ public class Calibration : MonoBehaviour
         {
             outline.effectColor = succesColor;
         }
+
     }
 
-    public void CalibrateGyro()
-    {
-        Quaternion currentGyroData = udpListener.gyroQuaternion;
-        initialOrientation = Quaternion.Inverse(currentGyroData);
-        isCalibrated = true;
-    }
 
     public void IsIphone()
     {
@@ -73,15 +70,15 @@ public class Calibration : MonoBehaviour
         iphone = false;
         choseVersion = true;
     }
-    
-    public void Proceed()
+
+
+    public void CalibrateGyro()
     {
-
-        gameManager.initialOrientation = initialOrientation;
-        gameManager.isIphone = iphone;
-        gameManager.isCalibrated = isCalibrated;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-
+        Quaternion currentGyroData = pcListener.gyroQuaternion;
+        initialOrientation = Quaternion.Inverse(currentGyroData);
+        isCalibrated = true;
     }
+
+
 
 }

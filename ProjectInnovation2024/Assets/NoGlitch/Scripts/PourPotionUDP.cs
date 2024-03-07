@@ -6,8 +6,11 @@ public class PourPotionUDP : MonoBehaviour
 {
 
     [SerializeField] private GameObject senderListener;
+    private PcListener pcListener; //cache component
+    private PcSender pcSender; //cache component
 
-    private UDPListener udpListener; //cache component
+    [SerializeField] private string item = "PotionFirst"; //has to be name of the item in the inventory
+
     private Quaternion previousGyroData;
 
     private float minPhoneRotationX;
@@ -26,11 +29,13 @@ public class PourPotionUDP : MonoBehaviour
 
     private bool didPour = false;
 
+
     void Start()
     {
         if (senderListener != null)
         {
-            udpListener = senderListener.GetComponent<UDPListener>();
+            pcListener = senderListener.GetComponent<PcListener>();
+            pcSender = senderListener.GetComponent<PcSender>();
         }
 
         if (calibrationController != null)
@@ -58,7 +63,7 @@ public class PourPotionUDP : MonoBehaviour
     }
     private void GyroCheck()
     {
-        Quaternion currentGyroData = udpListener.gyroQuaternion;
+        Quaternion currentGyroData = pcListener.gyroQuaternion;
         if (currentGyroData != previousGyroData)
         { //only update when the value changes
 
@@ -98,10 +103,12 @@ public class PourPotionUDP : MonoBehaviour
         if (!didPour)
         {
             //Debug.Log("Pouring now");
+            pcSender.SendUsedItem(item);
         }
         didPour = true;
         StartCoroutine(WaitSomeSecs());
     }
+    
 
     private IEnumerator WaitSomeSecs()
     {
@@ -109,7 +116,6 @@ public class PourPotionUDP : MonoBehaviour
         vessel.SetActive(true); 
         //vessel.GetComponent<MixUDP>().FinishedPouring();
     }
-
 
     private void CheckPhone()
     {
@@ -129,4 +135,3 @@ public class PourPotionUDP : MonoBehaviour
         }
     }
 }
-

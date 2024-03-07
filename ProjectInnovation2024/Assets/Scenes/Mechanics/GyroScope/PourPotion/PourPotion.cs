@@ -2,16 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Unity.VisualScripting;
+using System.Runtime.CompilerServices;
 
 public class PourPotion : MonoBehaviour {
 
-  [SerializeField] private float minPhoneRotationX = 30;
-  [SerializeField] private float maxPhoneRotationX = 70;
-  [SerializeField] private float minPourAngleX = 120;
-  [SerializeField] private float maxPourAngleX = 180;
+  [SerializeField] private bool iphone = false; //has to be set before pouring is active
 
-  [SerializeField] private TextMeshProUGUI textBox; //for testing
-  [SerializeField] private bool upright = true; //for testing
+  private float minPhoneRotationX;
+  private float maxPhoneRotationX;
+  private float minPourAngleY;
+  private float maxPourAngleY;
+
+  private Quaternion initialOrientation;
+  private bool isCalibrated = false;
+
+  private Vector3 spriteRotation;
+  private Quaternion targetRotation;
+  [SerializeField] private float rotationSpeed = 2f;
+
+  bool didPour = false;
+  [SerializeField] TextMeshProUGUI textBox;
+
 
   private void Start() {
     if (SystemInfo.supportsGyroscope) { //check if device has gyroscope
@@ -20,31 +32,71 @@ public class PourPotion : MonoBehaviour {
     else {
       Debug.Log("Gyroscope not supported"); //message if not supported
     }
+    targetRotation = transform.rotation;
   }
 
   private void Update() {
+    if (!isCalibrated) {
+      return;
+    }
+    CheckPhone();
     GyroCheck();
   }
 
+  public void CalibrateGyro() { //assign this to a button to calibrate before starting the minigame
+    initialOrientation = Quaternion.Inverse(Input.gyro.attitude);
+    isCalibrated = true;
+  }
+
+
   private void GyroCheck() {
-    Vector3 gyroRot = new Vector3(Input.gyro.attitude.eulerAngles.x, Input.gyro.attitude.eulerAngles.y, Input.gyro.attitude.eulerAngles.z); //set gyro input to vector3
-    Vector3 spriteRotation = new Vector3(0, 0, gyroRot.z); //set sprite rotationZ to gyroZ
-    if (gyroRot.x > minPhoneRotationX && gyroRot.x < maxPhoneRotationX) { //check if phone is upright within minimum and maximum values
-      transform.rotation = Quaternion.Euler(spriteRotation); //set sprite rotationZ to vector3 spriteRotation
-      if (gyroRot.z > minPourAngleX && gyroRot.z < maxPourAngleX) { //check if phone is doing pouring motion within minimum and maximum values
-        Pour(); 
-      }
-      else {
-        textBox.text = "Now pour the potion";
+    Quaternion correctedOrientation = Input.gyro.attitude * initialOrientation; //apply the calibration offset to the current orientation
+    Vector3 gyroRotation = correctedOrientation.eulerAngles; // Use corrected orientation
+
+    if (iphone) {
+      if (gyroRotation.x > minPhoneRotationX || gyroRotation.x < maxPhoneRotationX) { //check we are pouring within the phone upright position within the x range
+        Vector3 spriteRotation = new Vector3(0, 0, -gyroRotation.y);  // IPHONE
+        targetRotation = Quaternion.Euler(spriteRotation); //easing
+        if (gyroRotation.y > minPourAngleY && gyroRotation.y < maxPourAngleY) //check if we are pouring correct direction
+        {
+          Pour();
+        }
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed); //easing pt.2
       }
     }
     else {
-      if (upright) textBox.text = "Hold your phone upright";
+      spriteRotation = new Vector3(0, 0, -gyroRotation.y);  // ANDROID without x if, otherwise -y
+      targetRotation = Quaternion.Euler(spriteRotation); //easing
+      if (gyroRotation.y > minPourAngleY && gyroRotation.y < maxPourAngleY) //check if we are pouring correct direction
+      {
+        Pour();
+      }
+      transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed); //easing pt.2
     }
+
+    textBox.text = gyroRotation.ToString();
   }
 
+
   private void Pour() {
-    textBox.text = "Good job!";
-    Debug.Log("Pouring now");
+    if(!didPour) {
+      Debug.Log("Pouring now");
+    }
+    didPour = true;
+  }
+
+  private void CheckPhone() {
+    if (iphone) {
+      minPhoneRotationX = 330;
+      maxPhoneRotationX = 30;
+      minPourAngleY = 180;
+      maxPourAngleY = 240;
+    }
+    else {
+      minPhoneRotationX = 350;
+      maxPhoneRotationX = 10;
+      minPourAngleY = 120;
+      maxPourAngleY = 180;
+    }
   }
 }

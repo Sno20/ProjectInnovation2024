@@ -5,15 +5,29 @@ using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour {
 
-    [SerializeField] private GameObject itemsButtons;
-    [SerializeField] private GameObject itemsSprites;
-
+  [SerializeField] private GameObject itemsButtons;
+  [SerializeField] private GameObject itemsSprites;
+  [SerializeField] private GameObject backButton;
+  private bool showBackButton = false;
 
   private Dictionary<string, GameObject> itemsMap = new Dictionary<string, GameObject>();
   private Dictionary<string, bool> itemsUsed = new Dictionary<string, bool>();
 
-  void Start() {
+  private void Start() {
     InitializeItemsMap();
+  }
+
+  private void Update() {
+    CheckBackButton();
+  }
+
+  void CheckBackButton() {
+    if (showBackButton) {
+      backButton.SetActive(true);
+    }
+    else {
+      backButton?.SetActive(false);
+    }
   }
 
   void InitializeItemsMap() {
@@ -53,6 +67,7 @@ public class Inventory : MonoBehaviour {
     foreach (var sprite in itemsMap.Values) {
       sprite.SetActive(false); // Hide all sprites
     }
+    showBackButton = false;
   }
 
   // Method to mark an item as used, callable from other scripts
@@ -87,5 +102,6 @@ public class Inventory : MonoBehaviour {
     }
     // This line ensures that the parent container's active state reflects whether any buttons are to be shown
     itemsButtons.SetActive(show);
+    showBackButton = true;
   }
 }

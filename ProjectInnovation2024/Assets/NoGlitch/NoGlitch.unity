@@ -342,7 +342,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1904840830}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Calibration, Assembly-CSharp
         m_MethodName: CalibrateGyro
         m_Mode: 1
@@ -717,7 +717,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1904840830}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Calibration, Assembly-CSharp
         m_MethodName: IsIphone
         m_Mode: 1
@@ -1431,7 +1431,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   senderListener: {fileID: 1489460627}
-  redBeaker: {fileID: 0}
+  redBeaker: {fileID: 21300000, guid: e0e4f76e746c9c340935f18b172d5d37, type: 3}
   purpleBeaker: {fileID: 21300000, guid: 5b873548d3c4a3145adcef191ef8aa5c, type: 3}
   check: 0
 --- !u!212 &847441517
@@ -1616,7 +1616,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   senderListener: {fileID: 1489460627}
-  calibrationController: {fileID: 1904840829}
+  item: PotionRed
+  calibrationController: {fileID: 1571311096}
   rotationSpeed: 5
   vessel: {fileID: 1683243065}
 --- !u!1 &943326652
@@ -1796,8 +1797,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 533963f47de62a649926ed4dce086c57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  senderListner: {fileID: 0}
-  calibrationController: {fileID: 0}
+  senderListner: {fileID: 1489460627}
+  calibrationController: {fileID: 1571311096}
   minPhoneRotationX: 270
   maxPhoneRotationX: 360
   minUVAngleY: 240
@@ -2138,7 +2139,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1904840830}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Calibration, Assembly-CSharp
         m_MethodName: IsAndroid
         m_Mode: 1
@@ -2358,6 +2359,55 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   m_IsOn: 0
+--- !u!1 &1571311096
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1571311098}
+  - component: {fileID: 1571311097}
+  m_Layer: 0
+  m_Name: CalibrationController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1571311097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1571311096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 443d53d9acaf63a48b8143f81cbceb1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  senderListner: {fileID: 1489460627}
+  initialOrientation: {x: 0, y: 0, z: 0, w: 0}
+  isCalibrated: 0
+  iphone: 0
+  outline: {fileID: 355020893}
+--- !u!4 &1571311098
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1571311096}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 902.0389, y: 277.32916, z: -2.9914625}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1644708227
 GameObject:
   m_ObjectHideFlags: 0
@@ -2726,7 +2776,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   senderListener: {fileID: 1489460627}
-  calibrationController: {fileID: 0}
+  calibrationController: {fileID: 1571311096}
   easing: 1
   rotationSpeed: 5
   minPhoneRotationX: 270
@@ -3587,4 +3637,4 @@ SceneRoots:
   - {fileID: 981358174}
   - {fileID: 2068178052}
   - {fileID: 1392926337}
-  - {fileID: 1904840831}
+  - {fileID: 1571311098}

@@ -9,7 +9,7 @@ public class PourPotionUDP : MonoBehaviour
     private PcListener pcListener; //cache component
     private PcSender pcSender; //cache component
 
-    [SerializeField] private string item = "PotionRed"; //has to be name of the item in the inventory
+    [SerializeField] private string item = "PotionFirst"; //has to be name of the item in the inventory
 
     private Quaternion previousGyroData;
 

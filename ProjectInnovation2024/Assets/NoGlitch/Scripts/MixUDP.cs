@@ -6,6 +6,8 @@ using UnityEngine;
 public class MixUDP : MonoBehaviour
 {
 
+  [SerializeField] private string item = "PotionSecond"; //has to be name of the item in the inventory
+
   [SerializeField] private GameObject senderListener;
   private PcListener pcListener; //cache component
 

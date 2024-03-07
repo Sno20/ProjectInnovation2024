@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class ThrowUDP : MonoBehaviour
 {
+  [SerializeField] private string item = "PotionNew"; //has to be name of the item in the inventory
 
   [SerializeField] private GameObject senderListener;
   private PcListener pcListener; //cache component

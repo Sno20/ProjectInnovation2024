@@ -5,8 +5,9 @@ using UnityEngine;
 
 public class UVLightUDP : MonoBehaviour
 {
+  [SerializeField] private string item = "UVLight"; //has to be name of the item in the inventory
 
-    [SerializeField] private GameObject senderListner;
+  [SerializeField] private GameObject senderListner;
     private PcListener pcListener; //cache component
 
     [SerializeField] private GameObject calibrationController;

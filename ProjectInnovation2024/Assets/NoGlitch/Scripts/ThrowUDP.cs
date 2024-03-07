@@ -9,7 +9,7 @@ public class ThrowUDP : MonoBehaviour
     [SerializeField] private GameObject senderListener;
     private UDPListener udpListener; //cache component
 
-    [SerializeField] private GameObject explosionImage;
+    [SerializeField] private GameObject sideRoomButton;
     public bool explosion = false;
 
     void Start()
@@ -30,7 +30,7 @@ public class ThrowUDP : MonoBehaviour
 
     private void Explosion()
     {
-        explosionImage.SetActive(true);
+    sideRoomButton.SetActive(true);
         explosion = true;
     }
 }

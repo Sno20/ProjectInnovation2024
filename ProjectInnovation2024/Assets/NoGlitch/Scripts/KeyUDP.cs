@@ -24,6 +24,7 @@ public class KeyUDP : MonoBehaviour
     [SerializeField] private GameObject door;
     [SerializeField] private Sprite doorOpen;
 
+    private bool key = false;
     private bool didBoom = false;
 
     private void Start()
@@ -61,7 +62,12 @@ public class KeyUDP : MonoBehaviour
             return;
         }
         CheckPhone();
-        GyroCheck();
+
+        if (key)
+        {
+            GyroCheck();
+        }
+        Debug.Log("key? "+key);
     }
 
     private void GyroCheck()
@@ -121,4 +127,11 @@ public class KeyUDP : MonoBehaviour
             maxTurnAngleZ = 180f;
         }
     }
+
+    public void KeyPicked()
+    {
+        key = true;
+
+    }
+
 }

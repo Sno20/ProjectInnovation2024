@@ -112,9 +112,9 @@ public class PourPotionUDP : MonoBehaviour
 
     private IEnumerator WaitSomeSecs()
     {
-        yield return new WaitForSeconds(3);
-        vessel.GetComponent<MixUDP>().FinishedPouring();
-        
+        yield return new WaitForSeconds(2);
+        vessel.SetActive(true); 
+        //vessel.GetComponent<MixUDP>().FinishedPouring();
     }
 
     private void CheckPhone()

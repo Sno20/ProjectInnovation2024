@@ -18,7 +18,7 @@ public class UVLightUDP : MonoBehaviour
     [SerializeField] private float minUVAngleY = 60; //minimum down when faced away
     [SerializeField] private float maxUVAngleY = 255; //maximum right when faced away
 
-    [SerializeField] private GameObject textBox;
+    [SerializeField] private GameObject hiddenText;
 
     public bool discovered = false;
 
@@ -65,13 +65,13 @@ public class UVLightUDP : MonoBehaviour
         }
         else
         {
-            textBox.SetActive(false); //hide secret text if wrong gyro phone rotation
+            hiddenText.SetActive(false); //hide secret text if wrong gyro phone rotation
         }
     }
 
     private void ShowText()
     {
-        textBox.SetActive(true);
+        hiddenText.SetActive(true);
         discovered = true;
 
     }

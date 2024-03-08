@@ -12,6 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/New Folder/Server Gyro.unity
     guid: 2bfb46121dc10814ba7d43e1327dfc1a
   - enabled: 1
-    path: Assets/NoGlitchPhone/NoGlitchPhone.unity
+    path: Assets/NoGlitchPhone/FinalScene.unity
     guid: 705ef63a649c7c8449da4c11e232adcd
   m_configObjects: {}

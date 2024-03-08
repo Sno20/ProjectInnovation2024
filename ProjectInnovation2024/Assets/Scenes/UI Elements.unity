@@ -375,6 +375,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameUI
       objectReference: {fileID: 0}
+    - target: {fileID: 6806747066273364746, guid: 10b6506b7f199b04392b8a98eedf66b9, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 624592387}
+    - target: {fileID: 6806747066273364746, guid: 10b6506b7f199b04392b8a98eedf66b9, type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

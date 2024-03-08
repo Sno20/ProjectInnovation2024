@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Mechanics/GyroScope/PourPotion/Gyroscope.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 0
-    path: Assets/Scenes/GlitchServerScene.unity
+    path: Assets/Scenes/Trash/GlitchServerScene.unity
     guid: fa5a94f533d1c3045b0a89b2c15582e9
   - enabled: 0
     path: Assets/NoGlitch/NoGlitch.unity

@@ -27,7 +27,7 @@ public class MechanicsManager : MonoBehaviour {
   private void Update() {
 
 
-    currentScreen = cameraSwitchingController.GetComponent<CameraSwitching>().currentScreen;
+    currentScreen = cameraSwitchingController.GetComponent<BackgroundSwitching>().currentScreen;
 
     //Debug.Log(currentScreen);
 

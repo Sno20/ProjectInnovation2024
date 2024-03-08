@@ -8,19 +8,25 @@ public class Inventory : MonoBehaviour {
   [SerializeField] private GameObject itemsButtons;
   [SerializeField] private GameObject itemsSprites;
   [SerializeField] private GameObject backButton;
+  [SerializeField] private GameObject note;
+
   private bool showBackButton = false;
+
+  [SerializeField] private PhoneListener phoneListener;
 
   private Dictionary<string, GameObject> itemsMap = new Dictionary<string, GameObject>();
   private Dictionary<string, bool> itemsUsed = new Dictionary<string, bool>();
 
   private void Start() {
     InitializeItemsMap();
+    phoneListener = GetComponent<PhoneListener>();
+    //phoneSender.setIP
   }
 
   private void Update() {
     CheckBackButton();
   }
-
+  
   void CheckBackButton() {
     if (showBackButton) {
       backButton.SetActive(true);
@@ -68,6 +74,7 @@ public class Inventory : MonoBehaviour {
       sprite.SetActive(false); // Hide all sprites
     }
     showBackButton = false;
+    note.SetActive(true);
   }
 
   // Method to mark an item as used, callable from other scripts
@@ -103,5 +110,6 @@ public class Inventory : MonoBehaviour {
     // This line ensures that the parent container's active state reflects whether any buttons are to be shown
     itemsButtons.SetActive(show);
     showBackButton = true;
+    note.SetActive(false);
   }
 }
